@@ -34,24 +34,3 @@ npm run lint
 ```
 
 Load the extension in Chrome from `chrome://extensions` → **Load unpacked** → select `dist/`.
-
-## Architecture
-
-```
-┌──────────────────────────┐         ┌────────────────────────────┐
-│ DevTools panel (Preact)  │ ──────▶ │ Background service worker  │
-│  src/panel/              │  port   │  src/background.ts          │
-│  - App.tsx               │ ◀────── │  - CookieService            │
-│  - useCookies hook       │ events  │  - chrome.cookies.onChanged │
-└──────────────────────────┘         └────────────────────────────┘
-```
-
-- **Devtools page** ([src/devtools/](src/devtools/)) registers the panel via `chrome.devtools.panels.create`.
-- **Panel** ([src/panel/](src/panel/)) is a Preact app that opens a long-lived `chrome.runtime.connect` port to the service worker, keyed by inspected `tabId`. State is recomputed from `chrome.cookies` on demand — nothing is persisted.
-- **Service worker** ([src/background.ts](src/background.ts)) is a thin dispatcher over [CookieService](src/background/cookie-service.ts). It listens to `chrome.cookies.onChanged` and `chrome.webNavigation.onDOMContentLoaded` and pushes updates back over the port. The port is rebuilt on demand if the SW idles.
-- **Build**: Vite + `@crxjs/vite-plugin` produce `dist/` from [src/manifest.json](src/manifest.json).
-
-### Permissions
-
-- `cookies`, `tabs`, `webNavigation` — required for reading/writing cookies and refreshing the panel on navigation.
-- Host permission `*://*/*` — DevTools must read cookies for whatever origin the user is inspecting, which is not known ahead of time. `activeTab` is not viable here because the panel needs persistent cookie access for the inspected tab across navigations and reloads, not a one-shot user-gesture grant.
