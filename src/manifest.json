@@ -1,8 +1,9 @@
 {
    "background": {
-      "service_worker": "background.js"
+      "service_worker": "src/background.ts",
+      "type": "module"
    },
-   "devtools_page": "devtools-page.html",
+   "devtools_page": "src/devtools/devtools-page.html",
    "description": "Missing cookie manager for Google Chrome. Edit and create cookies right in the Developer Tools.",
    "homepage_url": "http://www.bigbadgoose.com/cookie-inspector",
    "icons": {
@@ -21,6 +22,12 @@
      "*://*/*",
      "http://*/*",
      "https://*/*"
+   ],
+   "web_accessible_resources": [
+     {
+       "resources": ["src/panel/panel.html"],
+       "matches": ["<all_urls>"]
+     }
    ],
    "version": "2.0.9"
 }

@@ -1,7 +1,7 @@
 # Cookie Inspector
 
-Missing cookie manager for Google Chrome. Edit and create cookies right
-in the Developer Tools.
+A cookie manager for Google Chrome. Edit and create cookies right
+in the Developer Tools. Forked from [westoque/cookie_inspector](https://github.com/westoque/cookie_inspector).
 
 Features:
 
@@ -9,36 +9,53 @@ Features:
 - Live Reloading (No need to close and open the inspector when you change URLs)
 - Export Cookies
 
-Coming Soon:
+## Installation
 
-- Import Cookies (SOON)
+1. Download or clone this repository, then unzip it somewhere you'll remember.
+2. Open Chrome and go to `chrome://extensions`.
+3. In the top-right corner, turn on **Developer mode**.
+4. Click **Load unpacked** and select the `dist/` folder inside the project.
+5. Open DevTools on any page (right-click → Inspect, or F12). The **Cookies** tab should appear.
+
+To update later, pull the latest changes and click the refresh icon on the extension's card in `chrome://extensions`.
+
+## Development
+
+Requires Node 20+.
+
+```
+npm install
+npm run dev      # watch build, auto-reloads the extension
+npm run build    # production build → dist/
+npm run typecheck
+npm run lint
+```
+
+Load the extension in Chrome from `chrome://extensions` → **Load unpacked** → select `dist/`.
 
 ## Design
 
 ```
-  +--------+      +--------+      +------------+
-  | Client |<---->| Socket |<---->| Background |
-  +--------+      +--------+      +------------+
+  +--------+      +--------+      +-----------------+
+  | Panel  |<---->| Socket |<---->| Service Worker  |
+  +--------+      +--------+      +-----------------+
 ```
 
-### Client
+### Panel
 
-The client is a Backbone.JS based application. The only difference is
-that it doesn't use the callbacks associated with saving, removing, or
-updating since it uses a system that functions like "websockets".
-Instead, it listens for events coming from the background and takes care
-of it appropriately.
+The DevTools panel UI. Currently a Backbone.js + jQuery + Mustache app
+(legacy, scheduled to be replaced with Preact + TypeScript — see
+[docs/modernization-plan.md](docs/modernization-plan.md)).
 
 ### Socket
 
-An object that mediates between the client and the background page.
+An object that mediates between the panel and the service worker via a
+long-lived `chrome.runtime` port.
 
-### Background
+### Service Worker
 
-The background page is the one that handles "server" side logic. Like
-fetching cookies, adding, removing and so on. The background sends
-messages to the client, and the client then either adds, removes, or
-updates it to the list.
+`src/background.ts` (TypeScript). Handles cookie reads/writes via the
+`chrome.cookies` API and pushes updates back to the panel.
 
 ## License
 
