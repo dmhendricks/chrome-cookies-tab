@@ -1,30 +1,28 @@
 {
+   "manifest_version": 3,
+   "name": "Cookie Tab in DevTools",
+   "short_name": "Cookie Tab",
+   "version": "2.2.0",
+   "devtools_page": "src/devtools/devtools-page.html",
+   "description": "Add a tab to DevTools for easy cookies management",
+   "author": "Daniel M. Hendricks",
+   "homepage_url": "https://github.com/dmhendricks/chrome-cookie-tab",
+   "icons": {
+      "16": "cookie-16.png",
+      "32": "cookie-32.png",
+      "48": "cookie-48.png",
+      "128": "cookie-128.png"
+   },
    "background": {
       "service_worker": "src/background.ts",
       "type": "module"
    },
-   "devtools_page": "src/devtools/devtools-page.html",
-   "description": "Add a tab to DevTools for easy cookies management",
-   "homepage_url": "https://github.com/dmhendricks/chrome-cookie-tab",
-   "icons": {
-      "128": "store-icon-128.png"
-   },
-   "manifest_version": 3,
-   "minimum_chrome_version": "116",
-   "name": "Cookie Tab in DevTools",
+   "minimum_chrome_version": "120",
    "permissions": [
      "cookies",
-     "tabs",
      "webNavigation"
    ],
    "host_permissions": [
      "*://*/*"
-   ],
-   "web_accessible_resources": [
-     {
-       "resources": ["src/panel/panel.html"],
-       "matches": ["<all_urls>"]
-     }
-   ],
-   "version": "2.2.0"
+   ]
 }
