@@ -29,17 +29,15 @@ export function Resizers({ widths, onResize }: Props) {
 
   const onPointerDown = (index: number) => (e: PointerEvent) => {
     e.preventDefault();
-    const startX = e.clientX;
-    const startWidths = widths.slice();
+    let lastX = e.clientX;
     const total = containerWidth || 1;
 
     const onMove = (ev: PointerEvent) => {
-      const dxPx = ev.clientX - startX;
+      const dxPx = ev.clientX - lastX;
+      if (dxPx === 0) return;
+      lastX = ev.clientX;
       const dxPercent = (dxPx / total) * 100;
-      const a = (startWidths[index] ?? 0) + dxPercent;
-      const b = (startWidths[index + 1] ?? 0) - dxPercent;
-      if (a < 3 || b < 3) return;
-      onResize(index, (startWidths[index] ?? 0) - a);
+      onResize(index, -dxPercent);
     };
     const onUp = () => {
       window.removeEventListener('pointermove', onMove);
