@@ -17,6 +17,13 @@
 
   --form-bg: rgb(232, 232, 232);
   --form-border: rgb(64%, 64%, 64%);
+  --input-bg: #ffffff;
+  --input-text: #000000;
+  --input-border: rgb(169, 169, 169);
+  --button-bg: #ffffff;
+  --button-text: #000000;
+  --button-border: rgb(169, 169, 169);
+  --button-bg-hover: #f0f0f0;
 
   --link: blue;
   --green: green;
@@ -47,6 +54,13 @@
 
   --form-bg: #2a2a2a;
   --form-border: #5e5e5e;
+  --input-bg: #1f1f1f;
+  --input-text: #d8dde3;
+  --input-border: #4a4a4a;
+  --button-bg: #3a3a3a;
+  --button-text: #d8dde3;
+  --button-border: #5a5a5a;
+  --button-bg-hover: #4a4a4a;
 
   --link: #6ca0f6;
   --green: #6fcf6f;
@@ -385,6 +399,20 @@ table {
 .data {
   vertical-align: top;
 
+  input[type='text'],
+  input[type='number'],
+  textarea {
+    background: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: 2px;
+    font-family: var(--font-stack);
+
+    &:disabled {
+      opacity: 0.6;
+    }
+  }
+
   input[type='text'] {
     width: 310px;
 
@@ -400,6 +428,20 @@ table {
 
     &:focus {
       outline-width: 5px;
+    }
+  }
+
+  button {
+    background: var(--button-bg);
+    color: var(--button-text);
+    border: 1px solid var(--button-border);
+    border-radius: 3px;
+    padding: 3px 12px;
+    font-family: var(--font-stack);
+    cursor: pointer;
+
+    &:hover {
+      background: var(--button-bg-hover);
     }
   }
 
@@ -426,5 +468,9 @@ table {
 
   &.buttons {
     text-align: center;
+
+    button + button {
+      margin-left: 10px;
+    }
   }
 }
