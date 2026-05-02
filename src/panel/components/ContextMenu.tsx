@@ -55,14 +55,12 @@ export function ContextMenu({ x, y, isInRow, actions, onDismiss }: Props) {
         {item('add-new-cookie', 'Add New Cookie', actions.onAddNew)}
         {isInRow && (
           <>
-            <div className="context-menu-item-separator"></div>
             {item('edit-cookie', 'Edit Cookie', actions.onEdit)}
             {item('remove-cookie', 'Remove Cookie', actions.onRemove)}
           </>
         )}
         <div className="context-menu-item-separator"></div>
         {item('remove-all-cookies', 'Remove All Cookies', actions.onRemoveAll)}
-        <div className="context-menu-item-separator"></div>
         {item('refresh-cookies', 'Refresh', actions.onRefresh)}
         <div className="context-menu-item-separator"></div>
         {item('export-all-cookies', 'Export All Cookies', actions.onExport)}

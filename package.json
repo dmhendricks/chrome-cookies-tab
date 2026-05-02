@@ -6,7 +6,7 @@
   "description": "Missing cookie manager for Google Chrome. Edit and create cookies right in the Developer Tools.",
   "license": "MIT",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite build --watch --mode development",
     "build": "vite build",
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
