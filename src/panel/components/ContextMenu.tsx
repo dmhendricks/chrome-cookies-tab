@@ -46,6 +46,11 @@ export function ContextMenu({ x, y, isInRow, actions, onDismiss }: Props) {
       ref={ref}
       tabIndex={0}
       onBlur={onDismiss}
+      onMouseDown={(e) => {
+        if (e.target === e.currentTarget) {
+          onDismiss();
+        }
+      }}
       onContextMenu={(e) => {
         e.preventDefault();
         onDismiss();
