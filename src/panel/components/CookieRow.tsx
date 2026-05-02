@@ -8,6 +8,43 @@ interface Props {
   onDoubleClick: (c: UICookie) => void;
 }
 
+function ClipboardIcon() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <rect x="9" y="2" width="6" height="4" rx="1" ry="1" />
+      <path d="M9 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-3" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg
+      width="12"
+      height="12"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      aria-hidden="true"
+    >
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+  );
+}
+
 function CopyAffordance({ value }: { value: string }) {
   const [copied, setCopied] = useState(false);
   const onClick = (e: MouseEvent) => {
@@ -24,7 +61,7 @@ function CopyAffordance({ value }: { value: string }) {
       onClick={onClick}
       onDblClick={(e) => e.stopPropagation()}
     >
-      {copied ? '✓' : '⧉'}
+      {copied ? <CheckIcon /> : <ClipboardIcon />}
     </span>
   );
 }

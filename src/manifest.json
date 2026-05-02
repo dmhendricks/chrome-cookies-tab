@@ -10,18 +10,15 @@
       "128": "store-icon-128.png"
    },
    "manifest_version": 3,
-   "minimum_chrome_version": "88",
+   "minimum_chrome_version": "116",
    "name": "Cookie Tab in DevTools",
    "permissions": [
      "cookies",
      "tabs",
-     "unlimitedStorage",
      "webNavigation"
    ],
    "host_permissions": [
-     "*://*/*",
-     "http://*/*",
-     "https://*/*"
+     "*://*/*"
    ],
    "web_accessible_resources": [
      {
