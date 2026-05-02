@@ -17,6 +17,7 @@
     "@crxjs/vite-plugin": "^2.4.0",
     "@eslint/js": "^10.0.1",
     "@types/chrome": "^0.1.40",
+    "@types/node": "^25.6.0",
     "eslint": "^10.3.0",
     "preact": "^10.29.1",
     "prettier": "^3.8.3",
