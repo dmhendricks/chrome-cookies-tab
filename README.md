@@ -1,7 +1,7 @@
 # Cookie Inspector
 
 A cookie manager for Google Chrome. Edit and create cookies right
-in the Developer Tools. Forked from [westoque/cookie_inspector](https://github.com/westoque/cookie_inspector).
+in the Developer Tools. Forked from [westoque/cookie_inspector](https://github.com/westoque/cookie_inspector). Now with proper dark mode support.
 
 Features:
 
