@@ -11,13 +11,13 @@ Features:
 
 ## Installation
 
-1. Download or clone this repository, then unzip it somewhere you'll remember.
+1. Download `cookie-inspector.zip` from the [latest release](https://github.com/dmhendricks/cookie-inspector/releases/latest) and unzip it somewhere you'll remember.
 2. Open Chrome and go to `chrome://extensions`.
 3. In the top-right corner, turn on **Developer mode**.
-4. Click **Load unpacked** and select the `dist/` folder inside the project.
+4. Click **Load unpacked** and select the unzipped folder.
 5. Open DevTools on any page (right-click → Inspect, or F12). The **Cookies** tab should appear.
 
-To update later, pull the latest changes and click the refresh icon on the extension's card in `chrome://extensions`.
+To update later, download the new release zip, replace the unzipped folder's contents, and click the refresh icon on the extension's card in `chrome://extensions`.
 
 ## Development
 
