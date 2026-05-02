@@ -1,6 +1,6 @@
 # Cookie Tab in DevTools Changelog
 
-### Master
+### Release 2.2.0
 
 - Rewrite the DevTools panel UI in Preact + JSX, replacing Backbone, jQuery, Underscore, Mustache, and Hogan. Delete `lib/`.
 - Convert panel CSS to SCSS with CSS variable theming.
