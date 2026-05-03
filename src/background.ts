@@ -31,6 +31,39 @@ function send(port: chrome.runtime.Port, command: string, data: unknown): void {
   }
 }
 
+async function onDOMContentLoaded(
+  details: chrome.webNavigation.WebNavigationFramedCallbackDetails,
+): Promise<void> {
+  if (details.frameId !== 0) return;
+  const port = ports.get(details.tabId);
+  if (!port) return;
+  if (paused.has(details.tabId)) return;
+  const cookies = await CookieService.list(details.tabId);
+  send(port, 'cookies:read', { cookies });
+}
+
+function onBeforeNavigate(
+  details: chrome.webNavigation.WebNavigationBaseCallbackDetails,
+): void {
+  if (details.frameId !== 0) return;
+  const port = ports.get(details.tabId);
+  if (!port) return;
+  if (paused.has(details.tabId)) return;
+  send(port, 'navigate', undefined);
+}
+
+function attachNavigationListeners(): void {
+  if (chrome.webNavigation.onDOMContentLoaded.hasListener(onDOMContentLoaded)) return;
+  chrome.webNavigation.onDOMContentLoaded.addListener(onDOMContentLoaded);
+  chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigate);
+}
+
+function detachNavigationListeners(): void {
+  if (!chrome.webNavigation.onDOMContentLoaded.hasListener(onDOMContentLoaded)) return;
+  chrome.webNavigation.onDOMContentLoaded.removeListener(onDOMContentLoaded);
+  chrome.webNavigation.onBeforeNavigate.removeListener(onBeforeNavigate);
+}
+
 async function handle(rawMsg: unknown, port: chrome.runtime.Port): Promise<void> {
   const parsed = v.safeParse(PortMessageSchema, rawMsg);
   if (!parsed.success) return;
@@ -39,9 +72,11 @@ async function handle(rawMsg: unknown, port: chrome.runtime.Port): Promise<void>
   switch (command) {
     case 'saveListener': {
       ports.set(tabId, port);
+      attachNavigationListeners();
       port.onDisconnect.addListener(() => {
         if (ports.get(tabId) === port) ports.delete(tabId);
         paused.delete(tabId);
+        if (ports.size === 0) detachNavigationListeners();
       });
       return;
     }
@@ -117,19 +152,3 @@ chrome.runtime.onConnect.addListener((port) => {
   });
 });
 
-chrome.webNavigation.onDOMContentLoaded.addListener(async (details) => {
-  if (details.frameId !== 0) return;
-  const port = ports.get(details.tabId);
-  if (!port) return;
-  if (paused.has(details.tabId)) return;
-  const cookies = await CookieService.list(details.tabId);
-  send(port, 'cookies:read', { cookies });
-});
-
-chrome.webNavigation.onBeforeNavigate.addListener((details) => {
-  if (details.frameId !== 0) return;
-  const port = ports.get(details.tabId);
-  if (!port) return;
-  if (paused.has(details.tabId)) return;
-  send(port, 'navigate', undefined);
-});
