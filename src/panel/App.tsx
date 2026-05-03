@@ -127,6 +127,10 @@ export function App({ socket }: Props) {
           console.warn('cookie import: schema validation failed', result.issues);
           return;
         }
+        const confirmed = window.confirm(
+          `This will delete ${cookies.length} existing cookie(s) and import ${result.output.length}. Continue?`,
+        );
+        if (!confirmed) return;
         removeAll();
         for (const c of result.output) {
           const { id: _id, ...rest } = c;
