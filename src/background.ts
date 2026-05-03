@@ -77,6 +77,7 @@ async function handle(msg: PortMessage, port: chrome.runtime.Port): Promise<void
 }
 
 chrome.runtime.onConnect.addListener((port) => {
+  if (port.sender?.id !== chrome.runtime.id) return;
   port.onMessage.addListener((msg: PortMessage) => {
     void handle(msg, port);
   });
