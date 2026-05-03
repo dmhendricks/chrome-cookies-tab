@@ -1,14 +1,15 @@
-import { CookieService, type CookieFormInput, type UpdatePayload } from './background/cookie-service';
+import * as v from 'valibot';
+import { CookieService } from './background/cookie-service';
+import {
+  CookieFormInputSchema,
+  UpdatePayloadSchema,
+} from './shared/cookie-schema';
 
-interface PortMessage {
-  command: string;
-  tabId: number;
-  data?: CookieFormInput &
-    Partial<UpdatePayload> & {
-      // legacy: server-side ignored; preserved for forward-compat
-      [key: string]: unknown;
-    };
-}
+const PortMessageSchema = v.object({
+  command: v.string(),
+  tabId: v.pipe(v.number(), v.integer(), v.minValue(0)),
+  data: v.optional(v.unknown()),
+});
 
 /**
  * Map of tabId → connected devtools port. Lost when the SW suspends; that's
@@ -24,8 +25,10 @@ function send(port: chrome.runtime.Port, command: string, data: unknown): void {
   }
 }
 
-async function handle(msg: PortMessage, port: chrome.runtime.Port): Promise<void> {
-  const { command, tabId } = msg;
+async function handle(rawMsg: unknown, port: chrome.runtime.Port): Promise<void> {
+  const parsed = v.safeParse(PortMessageSchema, rawMsg);
+  if (!parsed.success) return;
+  const { command, tabId, data } = parsed.output;
 
   switch (command) {
     case 'saveListener': {
@@ -43,26 +46,30 @@ async function handle(msg: PortMessage, port: chrome.runtime.Port): Promise<void
     }
 
     case 'cookies:create': {
-      const cookie = await CookieService.create(tabId, msg.data ?? {});
+      const input = v.safeParse(CookieFormInputSchema, data ?? {});
+      if (!input.success) return;
+      const cookie = await CookieService.create(tabId, input.output);
       send(port, command, cookie);
       return;
     }
 
     case 'cookies:delete': {
-      await CookieService.delete(tabId, msg.data?.name ?? '');
-      send(port, command, msg.data);
+      const input = v.safeParse(CookieFormInputSchema, data ?? {});
+      if (!input.success) return;
+      await CookieService.delete(tabId, input.output.name ?? '');
+      send(port, command, input.output);
       return;
     }
 
     case 'cookies:update': {
-      const data = msg.data;
-      if (!data?.previousAttributes || !data.changedAttributes) return;
+      const payload = v.safeParse(UpdatePayloadSchema, data);
+      if (!payload.success) return;
       const cookie = await CookieService.update(tabId, {
-        previousAttributes: data.previousAttributes,
-        changedAttributes: data.changedAttributes,
+        previousAttributes: payload.output.previousAttributes,
+        changedAttributes: payload.output.changedAttributes,
       });
       const enriched = cookie
-        ? { ...cookie, id: (data.previousAttributes as { id?: unknown }).id }
+        ? { ...cookie, id: payload.output.previousAttributes.id }
         : null;
       send(port, command, enriched);
       return;
@@ -78,7 +85,7 @@ async function handle(msg: PortMessage, port: chrome.runtime.Port): Promise<void
 
 chrome.runtime.onConnect.addListener((port) => {
   if (port.sender?.id !== chrome.runtime.id) return;
-  port.onMessage.addListener((msg: PortMessage) => {
+  port.onMessage.addListener((msg: unknown) => {
     void handle(msg, port);
   });
 });

@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'preact/hooks';
+import * as v from 'valibot';
 import { Header } from './components/Header';
 import { Content } from './components/Content';
 import { Footer } from './components/Footer';
@@ -8,6 +9,7 @@ import { Resizers } from './components/Resizers';
 import { useCookies } from './hooks/useCookies';
 import { useColumnResize } from './hooks/useColumnResize';
 import { sortCookies } from './util';
+import { CookieImportSchema } from '../shared/cookie-schema';
 import type { Socket } from './socket';
 import type { SortColumn, SortState, UICookie } from './types';
 
@@ -81,7 +83,7 @@ export function App({ socket }: Props) {
         value: 'Value',
         sameSite: 'unspecified',
         storeId: '',
-      } as UICookie;
+      };
       openEditorFor(cookie, true);
     });
   };
@@ -113,16 +115,23 @@ export function App({ socket }: Props) {
       if (!file) return;
       const fr = new FileReader();
       fr.addEventListener('loadend', () => {
+        let raw: unknown;
         try {
-          const parsed = JSON.parse(String(fr.result)) as Array<Partial<UICookie>>;
-          removeAll();
-          for (const c of parsed) {
-            const { id: _id, ...rest } = c;
-            void _id;
-            create(rest as UICookie);
-          }
+          raw = JSON.parse(String(fr.result));
         } catch {
-          // ignore malformed JSON
+          console.warn('cookie import: invalid JSON');
+          return;
+        }
+        const result = v.safeParse(CookieImportSchema, raw);
+        if (!result.success) {
+          console.warn('cookie import: schema validation failed', result.issues);
+          return;
+        }
+        removeAll();
+        for (const c of result.output) {
+          const { id: _id, ...rest } = c;
+          void _id;
+          create(rest);
         }
       });
       fr.readAsText(file);

@@ -1,8 +1,16 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
+import * as v from 'valibot';
 import type { Socket } from '../socket';
 import type { UICookie } from '../types';
+import {
+  IncomingCookieSchema,
+  IncomingCookieListSchema,
+} from '../../shared/cookie-schema';
 
-interface ReadPayload { cookies: Array<Omit<UICookie, 'id'>>; }
+const UpdateResponseSchema = v.intersect([
+  IncomingCookieSchema,
+  v.object({ id: v.number() }),
+]);
 
 export function useCookies(socket: Socket) {
   const [cookies, setCookies] = useState<UICookie[]>([]);
@@ -15,19 +23,21 @@ export function useCookies(socket: Socket) {
 
   useEffect(() => {
     const offRead = socket.on('cookies:read', (data) => {
-      const list = (data as ReadPayload).cookies ?? [];
-      setCookies(list.map((c) => ({ ...c, id: nextId() } as UICookie)));
+      const result = v.safeParse(IncomingCookieListSchema, data);
+      if (!result.success) return;
+      setCookies(result.output.cookies.map((c) => ({ ...c, id: nextId() })));
     });
 
     const offCreate = socket.on('cookies:create', (data) => {
-      const c = data as Omit<UICookie, 'id'>;
-      if (!c) return;
-      setCookies((prev) => [...prev, { ...c, id: nextId() } as UICookie]);
+      const result = v.safeParse(IncomingCookieSchema, data);
+      if (!result.success) return;
+      setCookies((prev) => [...prev, { ...result.output, id: nextId() }]);
     });
 
     const offUpdate = socket.on('cookies:update', (data) => {
-      const updated = data as (UICookie & { id: number }) | null;
-      if (!updated) return;
+      const result = v.safeParse(UpdateResponseSchema, data);
+      if (!result.success) return;
+      const updated = result.output;
       setCookies((prev) =>
         prev.map((c) => (c.id === updated.id ? { ...c, ...updated } : c)),
       );

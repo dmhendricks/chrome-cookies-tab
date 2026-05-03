@@ -1,23 +1,12 @@
+import type {
+  ValidatedCookieFormInput,
+  ValidatedUpdatePayload,
+} from '../shared/cookie-schema';
+
 export type Cookie = chrome.cookies.Cookie;
 
-export interface CookieFormInput {
-  name?: string;
-  value?: string;
-  domain?: string;
-  path?: string;
-  secure?: boolean;
-  httpOnly?: boolean;
-  hostOnly?: boolean;
-  session?: boolean;
-  expirationDate?: number;
-  sameSite?: chrome.cookies.SameSiteStatus;
-  storeId?: string;
-}
-
-export interface UpdatePayload {
-  previousAttributes: Cookie & { id?: unknown; hostOnly?: boolean; session?: boolean };
-  changedAttributes: Partial<CookieFormInput>;
-}
+export type CookieFormInput = ValidatedCookieFormInput;
+export type UpdatePayload = ValidatedUpdatePayload;
 
 function urlForCookie(cookie: Pick<Cookie, 'domain' | 'path' | 'secure'>): string {
   const protocol = cookie.secure ? 'https' : 'http';
@@ -83,10 +72,7 @@ export const CookieService = {
     const { previousAttributes: prev, changedAttributes: changed } = payload;
     const tabUrlValue = await tabUrl(tabId);
 
-    const merged: Cookie & { hostOnly?: boolean; session?: boolean } = {
-      ...prev,
-      ...changed,
-    } as Cookie & { hostOnly?: boolean; session?: boolean };
+    const merged = { ...prev, ...changed };
 
     const removeUrl = urlForCookie(prev);
     await chrome.cookies.remove({
