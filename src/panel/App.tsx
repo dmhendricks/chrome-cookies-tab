@@ -29,7 +29,7 @@ interface Props {
 }
 
 export function App({ socket }: Props) {
-  const { cookies, refresh, create, remove, removeAll, update } = useCookies(socket);
+  const { cookies, refresh, create, remove, removeAll, update, importAll } = useCookies(socket);
   const { widths, resize } = useColumnResize();
   const [sort, setSort] = useState<SortState | null>(null);
   const [menu, setMenu] = useState<MenuState | null>(null);
@@ -118,25 +118,36 @@ export function App({ socket }: Props) {
         let raw: unknown;
         try {
           raw = JSON.parse(String(fr.result));
-        } catch {
-          console.warn('cookie import: invalid JSON');
+        } catch (err) {
+          const msg = err instanceof Error ? err.message : 'invalid JSON';
+          console.warn('cookie import: invalid JSON', err);
+          window.alert(`Cookie import failed: ${msg}`);
           return;
         }
         const result = v.safeParse(CookieImportSchema, raw);
         if (!result.success) {
           console.warn('cookie import: schema validation failed', result.issues);
+          const summary = result.issues
+            .slice(0, 3)
+            .map((issue) => {
+              const path = issue.path?.map((p) => p.key).join('.') ?? '';
+              return path ? `${path}: ${issue.message}` : issue.message;
+            })
+            .join('\n');
+          const more = result.issues.length > 3 ? `\n…and ${result.issues.length - 3} more` : '';
+          window.alert(`Cookie import failed:\n${summary}${more}`);
           return;
         }
         const confirmed = window.confirm(
           `This will delete ${cookies.length} existing cookie(s) and import ${result.output.length}. Continue?`,
         );
         if (!confirmed) return;
-        removeAll();
-        for (const c of result.output) {
-          const { id: _id, ...rest } = c;
-          void _id;
-          create(rest);
-        }
+        importAll(
+          result.output.map(({ id: _id, ...rest }) => {
+            void _id;
+            return rest;
+          }),
+        );
       });
       fr.readAsText(file);
     });

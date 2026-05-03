@@ -75,6 +75,10 @@ export function useCookies(socket: Socket) {
         setCookies([]);
         socket.removeAll();
       },
+      importAll: (cookies: Parameters<Socket['import']>[0]) => {
+        setCookies([]);
+        socket.import(cookies);
+      },
       update: (
         previous: UICookie,
         changed: Partial<UICookie> & { session?: boolean; hostOnly?: boolean },

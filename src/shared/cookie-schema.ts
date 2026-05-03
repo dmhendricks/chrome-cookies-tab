@@ -49,9 +49,27 @@ export const UpdatePayloadSchema = v.object({
 
 export type ValidatedUpdatePayload = v.InferOutput<typeof UpdatePayloadSchema>;
 
+export const MAX_IMPORT_COOKIES = 1000;
+export const MAX_IMPORT_VALUE_BYTES = 8 * 1024;
+
+const ImportCookieSchema = v.intersect([
+  v.object({
+    ...CookieSchema.entries,
+    value: v.pipe(
+      v.string(),
+      v.check(
+        (s) => new TextEncoder().encode(s).byteLength <= MAX_IMPORT_VALUE_BYTES,
+        `Cookie value exceeds ${MAX_IMPORT_VALUE_BYTES} bytes`,
+      ),
+    ),
+  }),
+  v.object({ id: v.optional(v.number()) }),
+]);
+
 /** Import file: array of cookies, each may have a UI-only `id` that we drop. */
-export const CookieImportSchema = v.array(
-  v.intersect([CookieSchema, v.object({ id: v.optional(v.number()) })]),
+export const CookieImportSchema = v.pipe(
+  v.array(ImportCookieSchema),
+  v.maxLength(MAX_IMPORT_COOKIES, `Import exceeds ${MAX_IMPORT_COOKIES} cookies`),
 );
 
 /**

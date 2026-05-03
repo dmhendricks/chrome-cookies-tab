@@ -83,6 +83,10 @@ export class Socket {
     this.send({ command: 'removeAllCookies' });
   }
 
+  import(cookies: Array<Partial<Cookie> & { session?: boolean; hostOnly?: boolean }>): void {
+    this.send({ command: 'cookies:import', data: cookies });
+  }
+
   update(
     previousAttributes: Cookie & { id?: number },
     changedAttributes: Partial<Cookie> & { session?: boolean; hostOnly?: boolean },

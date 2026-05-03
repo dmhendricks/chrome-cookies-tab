@@ -12,6 +12,7 @@ docs
 *.njsproj
 *.sln
 *.sw?
+*.bak
 
 # Workspace
 *.code-workspace
