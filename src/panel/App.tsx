@@ -58,10 +58,19 @@ export function App({ socket }: Props) {
   const onAddNew = () => {
     const oneYear = new Date();
     oneYear.setFullYear(oneYear.getFullYear() + 1);
-    chrome.devtools.inspectedWindow.eval('window.document.domain', (domain: unknown) => {
+    chrome.tabs.get(socket.tabId, (tab) => {
+      let domain = '';
+      const url = tab?.url;
+      if (url) {
+        try {
+          domain = new URL(url).hostname;
+        } catch {
+          domain = '';
+        }
+      }
       const cookie: UICookie = {
         id: -1,
-        domain: typeof domain === 'string' ? domain : '',
+        domain,
         expirationDate: oneYear.getTime() / 1000,
         hostOnly: false,
         httpOnly: false,
