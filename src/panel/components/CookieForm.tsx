@@ -227,7 +227,7 @@ export function CookieForm({ initial, onSubmit, onCancel }: Props) {
               </tr>
               <tr>
                 <td colSpan={2} className="data buttons">
-                  <button id="submit" type="submit">Submit</button>
+                  <button id="submit" type="submit">Save</button>
                   <button
                     id="cancel"
                     type="button"
