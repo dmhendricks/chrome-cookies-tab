@@ -1,5 +1,9 @@
 # Cookies Tab in DevTools Changelog
 
+### Master
+
+- Add a settings popover (gear icon in the footer) with toggles for the copy-to-clipboard icons and a name filter bar. Settings persist via `chrome.storage.sync`.
+
 ### Release 3.0.0
 
 - Make cookie import atomic: replace the panel's `removeAll` + per-cookie `create` burst with a single `cookies:import` command in the background. Fixes a race where imports could leave an empty cookie store. Cap imports at 1000 cookies and 8 KiB per value, and surface JSON/schema errors in the UI.

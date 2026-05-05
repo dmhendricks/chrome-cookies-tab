@@ -247,9 +247,11 @@ table {
   right: 0;
   height: 23px;
   background-color: var(--footer-bg);
+  display: flex;
+  align-items: center;
 
   #cookies-count-container {
-    margin-top: 3px;
+    flex: 1 1 auto;
     margin-left: 4px;
   }
 }
@@ -471,6 +473,111 @@ table {
 
     button + button {
       margin-left: 10px;
+    }
+  }
+}
+
+#filter-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  box-sizing: border-box;
+  z-index: 4;
+
+  .filter-input {
+    flex: 1 1 auto;
+    height: 20px;
+    padding: 0 6px;
+    font-family: var(--font-stack);
+    font-size: 11px;
+    background: var(--input-bg);
+    color: var(--input-text);
+    border: 1px solid var(--input-border);
+    border-radius: 2px;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: var(--accent-blue);
+    }
+  }
+}
+
+body.filter-bar-visible {
+  #header {
+    top: 28px;
+  }
+
+  #content {
+    top: 51px;
+  }
+
+  .resizer {
+    top: 28px;
+  }
+}
+
+.settings-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-right: 4px;
+}
+
+.settings-gear {
+  background: transparent;
+  border: none;
+  color: #fff;
+  padding: 2px 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 3px;
+  opacity: 0.85;
+
+  &:hover {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  &[aria-expanded='true'] {
+    opacity: 1;
+    background: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.settings-popover {
+  position: absolute;
+  bottom: calc(100% + 6px);
+  right: 0;
+  min-width: 220px;
+  background: var(--context-menu-bg);
+  color: var(--context-menu-text);
+  border: 1px solid var(--context-menu-border);
+  border-radius: 4px;
+  box-shadow: var(--context-menu-shadow);
+  padding: 8px 10px;
+  z-index: 20;
+  font-size: 11px;
+
+  .settings-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 0;
+    cursor: pointer;
+    user-select: none;
+
+    input[type='checkbox'] {
+      margin: 0;
+      cursor: pointer;
     }
   }
 }

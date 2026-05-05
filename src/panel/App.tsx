@@ -1,13 +1,15 @@
-import { useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 import * as v from 'valibot';
 import { Header } from './components/Header';
 import { Content } from './components/Content';
 import { Footer } from './components/Footer';
+import { FilterBar } from './components/FilterBar';
 import { ContextMenu } from './components/ContextMenu';
 import { CookieForm, type FormValues } from './components/CookieForm';
 import { Resizers } from './components/Resizers';
 import { useCookies } from './hooks/useCookies';
 import { useColumnResize } from './hooks/useColumnResize';
+import { useSettings } from './hooks/useSettings';
 import { sortCookies } from './util';
 import { CookieImportSchema } from '../shared/cookie-schema';
 import type { Socket } from './socket';
@@ -31,14 +33,27 @@ interface Props {
 export function App({ socket }: Props) {
   const { cookies, refresh, create, remove, removeAll, update, importAll } = useCookies(socket);
   const { widths, resize } = useColumnResize();
+  const { settings, setSetting } = useSettings();
   const [sort, setSort] = useState<SortState | null>(null);
   const [menu, setMenu] = useState<MenuState | null>(null);
   const [editor, setEditor] = useState<EditorState | null>(null);
+  const [filter, setFilter] = useState('');
 
   const sorted = useMemo(
     () => (sort ? sortCookies(cookies, sort.column, sort.dir) : cookies),
     [cookies, sort],
   );
+
+  const visible = useMemo(() => {
+    if (!settings.showFilterBar) return sorted;
+    const q = filter.trim().toLowerCase();
+    if (!q) return sorted;
+    return sorted.filter((c) => c.name.toLowerCase().includes(q));
+  }, [sorted, settings.showFilterBar, filter]);
+
+  useEffect(() => {
+    document.body.classList.toggle('filter-bar-visible', settings.showFilterBar);
+  }, [settings.showFilterBar]);
 
   const onSort = (col: SortColumn) => {
     setSort((prev) => {
@@ -156,15 +171,17 @@ export function App({ socket }: Props) {
 
   return (
     <>
+      {settings.showFilterBar && <FilterBar value={filter} onChange={setFilter} />}
       <Header widths={widths} sort={sort} onSort={onSort} />
       <Content
-        cookies={sorted}
+        cookies={visible}
         widths={widths}
+        showCopyIcons={settings.showCopyIcons}
         onRowContextMenu={(e, c) => openMenuFor(e, c)}
         onFillerContextMenu={(e) => openMenuFor(e, null)}
         onRowDoubleClick={(c) => openEditorFor(c)}
       />
-      <Footer count={cookies.length} />
+      <Footer count={visible.length} settings={settings} setSetting={setSetting} />
       <Resizers widths={widths} onResize={resize} />
       {menu && (
         <ContextMenu

@@ -5,6 +5,7 @@ import { CookieRow } from './CookieRow';
 interface Props {
   cookies: UICookie[];
   widths: number[];
+  showCopyIcons: boolean;
   onRowContextMenu: (e: MouseEvent, c: UICookie) => void;
   onFillerContextMenu: (e: MouseEvent) => void;
   onRowDoubleClick: (c: UICookie) => void;
@@ -15,6 +16,7 @@ const FILLER_CELLS = Array.from({ length: 9 }, (_, i) => <td key={i}></td>);
 export function Content({
   cookies,
   widths,
+  showCopyIcons,
   onRowContextMenu,
   onFillerContextMenu,
   onRowDoubleClick,
@@ -40,6 +42,7 @@ export function Content({
             <CookieRow
               key={c.id}
               cookie={c}
+              showCopyIcons={showCopyIcons}
               onContextMenu={onRowContextMenu}
               onDoubleClick={onRowDoubleClick}
             />
