@@ -555,7 +555,7 @@ body.filter-bar-visible {
 
 .settings-popover {
   position: absolute;
-  bottom: calc(100% + 6px);
+  bottom: calc(100% + 8px);
   right: 0;
   min-width: 220px;
   background: var(--context-menu-bg);
@@ -566,6 +566,27 @@ body.filter-bar-visible {
   padding: 8px 10px;
   z-index: 20;
   font-size: 11px;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    right: 4px;
+    width: 0;
+    height: 0;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+  }
+
+  &::before {
+    bottom: -7px;
+    border-top: 7px solid var(--context-menu-border);
+  }
+
+  &::after {
+    bottom: -6px;
+    border-top: 7px solid var(--context-menu-bg);
+  }
 
   .settings-row {
     display: flex;
