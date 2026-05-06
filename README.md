@@ -3,7 +3,7 @@
 A cookie manager for Google Chrome. Edit and create cookies right
 in the Developer Tools. Forked from [westoque/cookie_inspector](https://github.com/westoque/cookie_inspector) and modernized.
 
-![Cookies Tab in DevTools Screenshot](store/screenshot-1280x350.png)
+![Cookies Tab in DevTools Screenshot](store/screenshot-1280x550.png)
 
 Features:
 
