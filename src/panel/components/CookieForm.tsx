@@ -99,7 +99,31 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
   return (
     <div id="cookie-form-view" ref={viewRef}>
       {showHeader && (
-        <div id="cookie-form-view-header">{isNew ? 'Add Cookie' : 'Edit Cookie'}</div>
+        <div id="cookie-form-view-header">
+          <span>{isNew ? 'Add Cookie' : 'Edit Cookie'}</span>
+          <button
+            type="button"
+            className="cookie-form-close"
+            aria-label="Close"
+            title="Close"
+            onClick={onCancel}
+          >
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
       )}
       <form id="cookie-form" onSubmit={submit}>
         <div id="cookie-form-body">

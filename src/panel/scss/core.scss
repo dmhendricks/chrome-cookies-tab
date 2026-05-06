@@ -306,13 +306,41 @@ table {
 }
 
 #cookie-form-view-header {
-  padding: 8px 16px;
+  padding: 8px 12px 8px 16px;
   background: var(--header-bg);
   color: var(--text);
   border-bottom: 1px solid var(--border);
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  .cookie-form-close {
+    background: transparent;
+    border: none;
+    color: var(--text);
+    opacity: 0.7;
+    padding: 2px 4px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    border-radius: 3px;
+    transition: opacity 0.12s ease, background 0.12s ease;
+
+    &:hover {
+      opacity: 1;
+      background: var(--row-hover-bg);
+    }
+
+    &:focus-visible {
+      outline: none;
+      opacity: 1;
+      box-shadow: 0 0 0 2px rgba(56, 121, 217, 0.5);
+    }
+  }
 }
 
 #cookie-form-body {
