@@ -16,7 +16,6 @@ export interface FormValues {
 
 interface Props {
   initial: UICookie;
-  isNew: boolean;
   onSubmit: (values: FormValues) => void;
   onCancel: () => void;
 }
@@ -29,7 +28,7 @@ function toDatetimeLocal(d: Date): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
+export function CookieForm({ initial, onSubmit, onCancel }: Props) {
   const initialDate = expirationDate(initial);
   const valueRef = useRef<HTMLTextAreaElement>(null);
   const [name, setName] = useState(initial.name ?? '');
@@ -87,7 +86,6 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
   return (
     <div id="cookie-form-view">
       <form id="cookie-form" onSubmit={submit}>
-        <div id="cookie-form-view-header">{isNew ? 'Add New Cookie' : 'Edit Cookie'}</div>
         <div id="cookie-form-body">
           <div className="form-field">
             <label for="cf-name">Name</label>
@@ -98,7 +96,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
               onInput={(e) => setName((e.target as HTMLInputElement).value)}
             />
           </div>
-          <div className="form-field">
+          <div className="form-field align-top">
             <label for="cf-value">Value</label>
             <textarea
               id="cf-value"
@@ -136,8 +134,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
               onInput={(e) => setExpires((e.target as HTMLInputElement).value)}
             />
           </div>
-          <fieldset className="form-flags">
-            <legend>Flags</legend>
+          <div className="form-flags">
             <label className="flag">
               <input
                 type="checkbox"
@@ -170,7 +167,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
               />
               Secure
             </label>
-          </fieldset>
+          </div>
           <div className="form-actions">
             <button
               className="btn-secondary"

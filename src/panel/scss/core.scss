@@ -316,10 +316,10 @@ table {
 }
 
 #cookie-form-body {
-  padding: 16px;
+  padding: 12px 14px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 8px;
 }
 
 #cookie-form {
@@ -420,15 +420,25 @@ table {
 }
 
 .form-field {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+  gap: 8px;
 
   label {
     font-size: 11px;
     font-weight: 600;
     color: var(--text);
     opacity: 0.85;
+    text-align: right;
+  }
+
+  &.align-top {
+    align-items: start;
+
+    label {
+      padding-top: 6px;
+    }
   }
 
   input[type='text'],
@@ -438,7 +448,7 @@ table {
     color: var(--input-text);
     border: 1px solid var(--input-border);
     border-radius: 4px;
-    padding: 6px 8px;
+    padding: 5px 7px;
     font-family: var(--font-stack);
     font-size: 12px;
     width: 100%;
@@ -459,7 +469,7 @@ table {
 
   textarea {
     resize: vertical;
-    min-height: 72px;
+    min-height: 56px;
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 11px;
     line-height: 1.4;
@@ -471,21 +481,11 @@ table {
 }
 
 .form-flags {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px 12px;
-  border: 1px solid var(--input-border);
-  border-radius: 4px;
-  padding: 8px 12px 10px;
-  margin: 0;
-
-  legend {
-    padding: 0 6px;
-    font-size: 11px;
-    font-weight: 600;
-    color: var(--text);
-    opacity: 0.85;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 14px;
+  margin: 2px 0;
 
   .flag {
     display: flex;
@@ -507,7 +507,6 @@ table {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
-  margin-top: 4px;
 
   button {
     font-family: var(--font-stack);
