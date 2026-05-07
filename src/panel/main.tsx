@@ -1,6 +1,9 @@
 import { render } from 'preact';
 import { App } from './App';
 import { Socket } from './socket';
+import { t } from './i18n';
+
+document.title = t('extName');
 
 interface PanelWindow extends Window {
   __cookieInspectorVisible__?: boolean;

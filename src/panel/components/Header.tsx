@@ -1,19 +1,20 @@
 import type { SortState, SortColumn } from '../types';
+import { t } from '../i18n';
 
 interface Col {
   key: SortColumn;
-  label: string;
+  labelKey: string;
 }
 
 const COLS: Col[] = [
-  { key: 'name', label: 'Name' },
-  { key: 'value', label: 'Value' },
-  { key: 'domain', label: 'Domain' },
-  { key: 'size', label: 'Size' },
-  { key: 'path', label: 'Path' },
-  { key: 'expires', label: 'Expires (GMT)' },
-  { key: 'httpOnly', label: 'HTTP' },
-  { key: 'secure', label: 'Secure' },
+  { key: 'name', labelKey: 'columnName' },
+  { key: 'value', labelKey: 'columnValue' },
+  { key: 'domain', labelKey: 'columnDomain' },
+  { key: 'size', labelKey: 'columnSize' },
+  { key: 'path', labelKey: 'columnPath' },
+  { key: 'expires', labelKey: 'columnExpires' },
+  { key: 'httpOnly', labelKey: 'columnHttpOnly' },
+  { key: 'secure', labelKey: 'columnSecure' },
 ];
 
 interface Props {
@@ -43,7 +44,7 @@ export function Header({ widths, sort, onSort }: Props) {
                   className={cls}
                   onClick={() => onSort(c.key)}
                 >
-                  <div>{c.label}</div>
+                  <div>{t(c.labelKey)}</div>
                 </th>
               );
             })}

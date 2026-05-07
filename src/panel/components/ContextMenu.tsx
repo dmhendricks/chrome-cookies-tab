@@ -1,4 +1,5 @@
 import { useLayoutEffect, useRef, useState } from 'preact/hooks';
+import { t } from '../i18n';
 
 export interface ContextMenuActions {
   onAddNew: () => void;
@@ -74,29 +75,29 @@ export function ContextMenu({ x, y, isInRow, selectedCount, actions, onDismiss }
       }}
     >
       <div id="context-menu-body" ref={bodyRef} style={{ top: pos.top, left: pos.left }}>
-        {item('add-new-cookie', 'Add New Cookie', actions.onAddNew)}
+        {item('add-new-cookie', t('menuAddNew'), actions.onAddNew)}
         {isInRow && selectedCount === 1 &&
-          item('edit-cookie', 'Edit Cookie', actions.onEdit)}
-        {item('refresh-cookies', 'Refresh', actions.onRefresh)}
+          item('edit-cookie', t('menuEdit'), actions.onEdit)}
+        {item('refresh-cookies', t('menuRefresh'), actions.onRefresh)}
         <div className="context-menu-item-separator"></div>
         {selectedCount === 1 && isInRow &&
-          item('remove-cookie', 'Delete Cookie', actions.onRemove)}
+          item('remove-cookie', t('menuDelete'), actions.onRemove)}
         {selectedCount > 1 &&
           item(
             'remove-cookie',
-            `Delete Selected (${selectedCount})`,
+            t('menuDeleteSelected', String(selectedCount)),
             actions.onRemove,
           )}
-        {item('remove-all-cookies', 'Delete All Cookies', actions.onRemoveAll)}
+        {item('remove-all-cookies', t('menuDeleteAll'), actions.onRemoveAll)}
         <div className="context-menu-item-separator"></div>
         {selectedCount > 0 &&
           item(
             'export-selected-cookies',
-            `Export Selected (${selectedCount})`,
+            t('menuExportSelected', String(selectedCount)),
             actions.onExportSelected,
           )}
-        {item('export-all-cookies', 'Export All Cookies', actions.onExport)}
-        {item('import-all-cookies', 'Import Cookies', actions.onImport)}
+        {item('export-all-cookies', t('menuExportAll'), actions.onExport)}
+        {item('import-all-cookies', t('menuImport'), actions.onImport)}
       </div>
     </div>
   );

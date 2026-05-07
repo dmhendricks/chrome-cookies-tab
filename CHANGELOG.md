@@ -1,5 +1,9 @@
 # Cookies Tab in DevTools Changelog
 
+### Master
+
+- Localize the extension via `chrome.i18n`. Add `_locales/en/messages.json` with all user-facing strings (column headers, edit form, context menu, settings popover, filter bar, footer, import alerts) and translator-facing descriptions. Manifest `name`, `short_name`, and `description` now resolve through `__MSG_*__` so the Chrome Web Store listing localizes alongside the panel UI. Adding a new language is a drop-in `_locales/<lang>/messages.json` — no code changes.
+
 ### Release 3.1.0
 
 - Add a settings popover (gear icon in the bottom right of footer) with toggles for the copy-to-clipboard icons and a name filter bar. Settings persist via `chrome.storage.sync`.

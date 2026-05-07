@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { Settings } from '../hooks/useSettings';
+import { t } from '../i18n';
 
 interface Props {
   settings: Settings;
@@ -50,15 +51,15 @@ export function SettingsPopover({ settings, setSetting }: Props) {
       <button
         type="button"
         className="settings-gear"
-        title="Settings"
-        aria-label="Settings"
+        title={t('settingsTitle')}
+        aria-label={t('settingsTitle')}
         aria-expanded={open}
         onClick={() => setOpen((v) => !v)}
       >
         <GearIcon />
       </button>
       {open && (
-        <div className="settings-popover" role="dialog" aria-label="Settings">
+        <div className="settings-popover" role="dialog" aria-label={t('settingsTitle')}>
           <label className="settings-row">
             <input
               type="checkbox"
@@ -67,7 +68,7 @@ export function SettingsPopover({ settings, setSetting }: Props) {
                 setSetting('showCopyIcons', (e.target as HTMLInputElement).checked)
               }
             />
-            <span>Show copy-to-clipboard icons</span>
+            <span>{t('settingsShowCopyIcons')}</span>
           </label>
           <label className="settings-row">
             <input
@@ -77,11 +78,11 @@ export function SettingsPopover({ settings, setSetting }: Props) {
                 setSetting('showFilterBar', (e.target as HTMLInputElement).checked)
               }
             />
-            <span>Show filter bar</span>
+            <span>{t('settingsShowFilterBar')}</span>
           </label>
           {settings.showFilterBar && (
             <label className="settings-row">
-              <span>Filter by</span>
+              <span>{t('settingsFilterBy')}</span>
               <select
                 value={settings.filterBy}
                 onChange={(e) =>
@@ -91,9 +92,9 @@ export function SettingsPopover({ settings, setSetting }: Props) {
                   )
                 }
               >
-                <option value="name">Name</option>
-                <option value="value">Value</option>
-                <option value="name-value">Name or Value</option>
+                <option value="name">{t('settingsFilterByName')}</option>
+                <option value="value">{t('settingsFilterByValue')}</option>
+                <option value="name-value">{t('settingsFilterByNameValue')}</option>
               </select>
             </label>
           )}

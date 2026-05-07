@@ -12,6 +12,7 @@ import { useColumnResize } from './hooks/useColumnResize';
 import { useSettings } from './hooks/useSettings';
 import { buildExportFilename, sortCookies } from './util';
 import { CookieImportSchema } from '../shared/cookie-schema';
+import { t } from './i18n';
 import type { Socket } from './socket';
 import type { SortColumn, SortState, UICookie } from './types';
 
@@ -271,7 +272,7 @@ export function App({ socket }: Props) {
         } catch (err) {
           const msg = err instanceof Error ? err.message : 'invalid JSON';
           console.warn('cookie import: invalid JSON', err);
-          window.alert(`Cookie import failed: ${msg}`);
+          window.alert(t('importInvalidJson', msg));
           return;
         }
         const result = v.safeParse(CookieImportSchema, raw);
@@ -284,12 +285,13 @@ export function App({ socket }: Props) {
               return path ? `${path}: ${issue.message}` : issue.message;
             })
             .join('\n');
-          const more = result.issues.length > 3 ? `\n…and ${result.issues.length - 3} more` : '';
-          window.alert(`Cookie import failed:\n${summary}${more}`);
+          const more =
+            result.issues.length > 3 ? t('importMoreIssues', String(result.issues.length - 3)) : '';
+          window.alert(t('importSchemaFailed', summary) + more);
           return;
         }
         const confirmed = window.confirm(
-          `Import ${result.output.length} cookie(s)? Existing cookies with the same name, domain, and path will be overwritten.`,
+          t('importConfirm', String(result.output.length)),
         );
         if (!confirmed) return;
         importAll(

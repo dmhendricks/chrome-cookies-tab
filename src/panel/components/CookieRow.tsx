@@ -1,6 +1,7 @@
 import { useState } from 'preact/hooks';
 import type { UICookie } from '../types';
 import { cookieSize, expirationDate, isSession } from '../util';
+import { t } from '../i18n';
 
 interface Props {
   cookie: UICookie;
@@ -60,7 +61,7 @@ function CopyAffordance({ value }: { value: string }) {
   return (
     <span
       className="copy-affordance"
-      title="Copy"
+      title={t('rowCopy')}
       onClick={onClick}
       onDblClick={(e) => e.stopPropagation()}
     >
@@ -103,13 +104,13 @@ export function CookieRow({
       <td><div>{cookie.path}</div></td>
       <td>
         {session ? (
-          <div className="green">Session</div>
+          <div className="green">{t('rowSession')}</div>
         ) : (
           <div>{expires ? expires.toString() : ''}</div>
         )}
       </td>
-      <td>{cookie.httpOnly ? <div className="green">True</div> : null}</td>
-      <td>{cookie.secure ? <div className="green">True</div> : null}</td>
+      <td>{cookie.httpOnly ? <div className="green">{t('rowTrue')}</div> : null}</td>
+      <td>{cookie.secure ? <div className="green">{t('rowTrue')}</div> : null}</td>
       <td></td>
     </tr>
   );

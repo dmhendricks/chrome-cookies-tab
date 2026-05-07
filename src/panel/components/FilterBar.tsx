@@ -1,4 +1,5 @@
 import type { FilterBy } from '../hooks/useSettings';
+import { t } from '../i18n';
 
 interface Props {
   value: string;
@@ -6,10 +7,10 @@ interface Props {
   onChange: (value: string) => void;
 }
 
-const PLACEHOLDERS: Record<FilterBy, string> = {
-  name: 'Filter by name',
-  value: 'Filter by value',
-  'name-value': 'Filter by name or value',
+const PLACEHOLDER_KEYS: Record<FilterBy, string> = {
+  name: 'filterPlaceholderName',
+  value: 'filterPlaceholderValue',
+  'name-value': 'filterPlaceholderNameValue',
 };
 
 export function FilterBar({ value, filterBy, onChange }: Props) {
@@ -18,7 +19,7 @@ export function FilterBar({ value, filterBy, onChange }: Props) {
       <input
         type="search"
         className="filter-input"
-        placeholder={PLACEHOLDERS[filterBy]}
+        placeholder={t(PLACEHOLDER_KEYS[filterBy])}
         value={value}
         onInput={(e) => onChange((e.target as HTMLInputElement).value)}
       />

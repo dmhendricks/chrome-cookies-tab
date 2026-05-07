@@ -1,5 +1,6 @@
 import { SettingsPopover } from './SettingsPopover';
 import type { Settings } from '../hooks/useSettings';
+import { t } from '../i18n';
 
 interface Props {
   count: number;
@@ -12,11 +13,11 @@ export function Footer({ count, selectedCount, settings, setSetting }: Props) {
   return (
     <div id="footer">
       <div id="cookies-count-container">
-        Total cookies: <span id="cookies-count">{count}</span>
+        {t('footerTotalCookies')} <span id="cookies-count">{count}</span>
         {selectedCount >= 2 && (
           <>
             {' • '}
-            Selected: <span id="selected-count">{selectedCount}</span>
+            {t('footerSelected')} <span id="selected-count">{selectedCount}</span>
           </>
         )}
       </div>

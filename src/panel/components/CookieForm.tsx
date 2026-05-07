@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { UICookie } from '../types';
 import { expirationDate, isSession } from '../util';
+import { t } from '../i18n';
 
 export interface FormValues {
   name: string;
@@ -100,12 +101,12 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
     <div id="cookie-form-view" ref={viewRef}>
       {showHeader && (
         <div id="cookie-form-view-header">
-          <span>{isNew ? 'Add Cookie' : 'Edit Cookie'}</span>
+          <span>{isNew ? t('formAddTitle') : t('formEditTitle')}</span>
           <button
             type="button"
             className="cookie-form-close"
-            aria-label="Close"
-            title="Close"
+            aria-label={t('formClose')}
+            title={t('formClose')}
             onClick={onCancel}
           >
             <svg
@@ -128,7 +129,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
       <form id="cookie-form" onSubmit={submit}>
         <div id="cookie-form-body">
           <div className="form-field">
-            <label for="cf-name">Name</label>
+            <label for="cf-name">{t('formName')}</label>
             <input
               id="cf-name"
               type="text"
@@ -137,7 +138,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
             />
           </div>
           <div className="form-field align-top">
-            <label for="cf-value">Value</label>
+            <label for="cf-value">{t('formValue')}</label>
             <textarea
               id="cf-value"
               ref={valueRef}
@@ -146,7 +147,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
             />
           </div>
           <div className="form-field">
-            <label for="cf-domain">Domain</label>
+            <label for="cf-domain">{t('formDomain')}</label>
             <input
               id="cf-domain"
               type="text"
@@ -155,7 +156,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
             />
           </div>
           <div className="form-field">
-            <label for="cf-path">Path</label>
+            <label for="cf-path">{t('formPath')}</label>
             <input
               id="cf-path"
               type="text"
@@ -164,7 +165,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
             />
           </div>
           <div className="form-field">
-            <label for="cf-expires">Expires</label>
+            <label for="cf-expires">{t('formExpires')}</label>
             <input
               id="cf-expires"
               type="datetime-local"
@@ -181,7 +182,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
                 checked={session}
                 onChange={(e) => setSession((e.target as HTMLInputElement).checked)}
               />
-              Session
+              {t('formFlagSession')}
             </label>
             <label className="flag">
               <input
@@ -189,7 +190,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
                 checked={hostOnly}
                 onChange={(e) => setHostOnly((e.target as HTMLInputElement).checked)}
               />
-              Host Only
+              {t('formFlagHostOnly')}
             </label>
             <label className="flag">
               <input
@@ -197,7 +198,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
                 checked={httpOnly}
                 onChange={(e) => setHttpOnly((e.target as HTMLInputElement).checked)}
               />
-              HTTP Only
+              {t('formFlagHttpOnly')}
             </label>
             <label className="flag">
               <input
@@ -205,7 +206,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
                 checked={secure}
                 onChange={(e) => setSecure((e.target as HTMLInputElement).checked)}
               />
-              Secure
+              {t('formFlagSecure')}
             </label>
           </div>
           <div className="form-actions">
@@ -217,10 +218,10 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
                 onCancel();
               }}
             >
-              Cancel
+              {t('formCancel')}
             </button>
             <button className="btn-primary" type="submit">
-              Save
+              {t('formSave')}
             </button>
           </div>
         </div>
