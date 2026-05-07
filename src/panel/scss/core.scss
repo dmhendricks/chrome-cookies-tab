@@ -247,10 +247,6 @@ table {
 
       &.selected {
         background: var(--row-selected-bg);
-
-        .copy-affordance {
-          visibility: visible;
-        }
       }
 
       &.selected:hover {
