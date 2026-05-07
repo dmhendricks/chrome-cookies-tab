@@ -1,10 +1,10 @@
 # Cookies Tab in DevTools Changelog
 
-### Master
+### Release 3.1.0
 
 - Add a settings popover (gear icon in the bottom right of footer) with toggles for the copy-to-clipboard icons and a name filter bar. Settings persist via `chrome.storage.sync`.
 - Set export filename based on domain name and date
-- Added ability to select multiple rows for deletion, export
+- Added ability to select multiple rows for deletion, export ([#9](https://github.com/westoque/cookie_inspector/issues/9))
 - Fixed bug where form didn't update to newly selected row when open
 - Various style improvements
 
