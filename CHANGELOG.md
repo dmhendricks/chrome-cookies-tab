@@ -2,7 +2,8 @@
 
 ### Master
 
-- Localize the extension via `chrome.i18n`. Add `_locales/en/messages.json` with all user-facing strings (column headers, edit form, context menu, settings popover, filter bar, footer, import alerts) and translator-facing descriptions. Manifest `name`, `short_name`, and `description` now resolve through `__MSG_*__` so the Chrome Web Store listing localizes alongside the panel UI. Adding a new language is a drop-in `_locales/<lang>/messages.json` — no code changes.
+- Localize the extension via `chrome.i18n`. All panel UI strings and the manifest `name` / `short_name` / `description` now resolve through `_locales/<lang>/messages.json`, so the Chrome Web Store listing localizes alongside the UI and adding a new language is a drop-in JSON file with no code changes.
+- Add Spanish (`es`), French (`fr`), and German (`de`) translations.
 
 ### Release 3.1.0
 

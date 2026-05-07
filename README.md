@@ -49,4 +49,4 @@ To contribute a translation:
 2. Translate the `message` fields. Leave the keys, `description` fields, and `placeholders` blocks untouched — `description` is for translator context, and placeholders like `$COUNT$` are substituted at runtime by Chrome.
 3. Submit a pull request.
 
-Missing keys fall back to English automatically, so partial translations are safe.
+Missing keys fall back to English automatically.
