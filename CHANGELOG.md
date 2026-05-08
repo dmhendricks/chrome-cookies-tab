@@ -3,7 +3,7 @@
 ### Master
 
 - Localize the extension via `chrome.i18n`. All panel UI strings and the manifest `name` / `short_name` / `description` now resolve through `_locales/<lang>/messages.json`, so the Chrome Web Store listing localizes alongside the UI and adding a new language is a drop-in JSON file with no code changes.
-- Added Spanish (`es`), French (`fr`), German (`de`), Brazilian Portuguese (`pt_BR`), Dutch (`nl`), Italian (`it`), and Polish (`pl`) translations.
+- Added Spanish (`es`), French (`fr`), German (`de`), Brazilian Portuguese (`pt_BR`), Dutch (`nl`), Italian (`it`), Polish (`pl`), and Turkish (`tr`) translations.
 
 ### Release 3.1.0
 
