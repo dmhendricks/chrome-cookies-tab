@@ -81,15 +81,15 @@ export function sortCookies(
   col: SortColumn,
   dir: SortDir,
 ): UICookie[] {
-  const out = cookies.slice();
-  out.sort((a, b) => {
-    const ka = sortKey(a, col);
-    const kb = sortKey(b, col);
-    if (ka === kb) return 0;
+  const decorated = cookies.map((c, i) => ({ c, i, k: sortKey(c, col) }));
+  const sign = dir === 'asc' ? 1 : -1;
+  decorated.sort((a, b) => {
+    const ka = a.k;
+    const kb = b.k;
+    if (ka === kb) return a.i - b.i;
     if (ka === null) return 1;
     if (kb === null) return -1;
-    const cmp = ka < kb ? -1 : 1;
-    return dir === 'asc' ? cmp : -cmp;
+    return ka < kb ? -sign : sign;
   });
-  return out;
+  return decorated.map((d) => d.c);
 }

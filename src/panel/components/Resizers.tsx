@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'preact/hooks';
+import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
 interface Props {
   widths: number[];
@@ -27,25 +27,28 @@ export function Resizers({ widths, onResize }: Props) {
     lefts.push((runningPercent / 100) * containerWidth);
   }
 
-  const onPointerDown = (index: number) => (e: PointerEvent) => {
-    e.preventDefault();
-    let lastX = e.clientX;
-    const total = containerWidth || 1;
+  const onPointerDown = useCallback(
+    (index: number) => (e: PointerEvent) => {
+      e.preventDefault();
+      let lastX = e.clientX;
+      const total = containerWidth || 1;
 
-    const onMove = (ev: PointerEvent) => {
-      const dxPx = ev.clientX - lastX;
-      if (dxPx === 0) return;
-      lastX = ev.clientX;
-      const dxPercent = (dxPx / total) * 100;
-      onResize(index, -dxPercent);
-    };
-    const onUp = () => {
-      window.removeEventListener('pointermove', onMove);
-      window.removeEventListener('pointerup', onUp);
-    };
-    window.addEventListener('pointermove', onMove);
-    window.addEventListener('pointerup', onUp);
-  };
+      const onMove = (ev: PointerEvent) => {
+        const dxPx = ev.clientX - lastX;
+        if (dxPx === 0) return;
+        lastX = ev.clientX;
+        const dxPercent = (dxPx / total) * 100;
+        onResize(index, -dxPercent);
+      };
+      const onUp = () => {
+        window.removeEventListener('pointermove', onMove);
+        window.removeEventListener('pointerup', onUp);
+      };
+      window.addEventListener('pointermove', onMove);
+      window.addEventListener('pointerup', onUp);
+    },
+    [containerWidth, onResize],
+  );
 
   return (
     <div ref={containerRef}>
