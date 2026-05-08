@@ -742,6 +742,11 @@ body.filter-bar-visible {
   animation:
     toast-in 140ms ease-out,
     toast-out var(--toast-fade-out) ease-in calc(var(--toast-duration) - var(--toast-fade-out)) forwards;
+
+  &.toast-success { border-left-color: #22c55e; }
+  &.toast-warn    { border-left-color: #f59e0b; }
+  &.toast-help    { border-left-color: #a855f7; }
+  &.toast-danger  { border-left-color: #ef4444; }
 }
 
 @keyframes toast-in {

@@ -12,7 +12,7 @@ export function Toasts({ toasts, onDismiss }: Props) {
       {toasts.map((t) => (
         <div
           key={t.id}
-          className="toast"
+          className={`toast toast-${t.severity}`}
           style={{ '--toast-duration': `${t.durationMs}ms` }}
           onClick={() => onDismiss(t.id)}
         >

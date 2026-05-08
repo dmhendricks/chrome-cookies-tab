@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import type { UICookie } from '../types';
 import { expirationDate, formatExpiration, isSession } from '../util';
 import { t } from '../i18n';
+import type { ToastSeverity } from '../hooks/useToasts';
 
 // Chrome enforces RFC 6265bis: cookies whose Max-Age/Expires exceeds 400 days
 // are silently capped. We warn the user and let them proceed.
@@ -24,7 +25,7 @@ interface Props {
   isNew: boolean;
   onSubmit: (values: FormValues) => void;
   onCancel: () => void;
-  showToast: (message: string, durationMs?: number) => void;
+  showToast: (message: string, severity?: ToastSeverity, durationMs?: number) => void;
 }
 
 function pad(n: number): string {
@@ -104,7 +105,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel, showToast }: Pr
         const requested = Math.floor(dt.getTime() / 1000);
         const cap = Math.floor(Date.now() / 1000) + MAX_COOKIE_LIFETIME_SECONDS;
         if (requested > cap) {
-          showToast(t('formExpirationCapped', formatExpiration(new Date(cap * 1000))), 6000);
+          showToast(t('formExpirationCapped', formatExpiration(new Date(cap * 1000))), 'warn', 6000);
           values.expirationDate = cap;
         } else {
           values.expirationDate = requested;

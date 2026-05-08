@@ -1,8 +1,11 @@
 import { useCallback, useEffect, useRef, useState } from 'preact/hooks';
 
+export type ToastSeverity = 'info' | 'success' | 'warn' | 'help' | 'danger';
+
 export interface Toast {
   id: number;
   message: string;
+  severity: ToastSeverity;
   durationMs: number;
 }
 
@@ -18,9 +21,13 @@ export function useToasts() {
   }, []);
 
   const showToast = useCallback(
-    (message: string, durationMs: number = DEFAULT_TOAST_DURATION_MS) => {
+    (
+      message: string,
+      severity: ToastSeverity = 'info',
+      durationMs: number = DEFAULT_TOAST_DURATION_MS,
+    ) => {
       const id = nextId.current++;
-      setToasts((prev) => [...prev, { id, message, durationMs }]);
+      setToasts((prev) => [...prev, { id, message, severity, durationMs }]);
       const handle = window.setTimeout(() => dismissToast(id), durationMs);
       timers.current.push(handle);
     },
