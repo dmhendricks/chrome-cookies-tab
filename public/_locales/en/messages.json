@@ -212,7 +212,7 @@
     "description": "Cell text in the Expires column for cookies that expire when the browser session ends."
   },
   "rowTrue": {
-    "message": "Yes",
+    "message": "True",
     "description": "Cell text in the HTTP-Only and Secure columns when the flag is set."
   },
   "rowCopy": {

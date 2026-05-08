@@ -69,24 +69,30 @@ export function App({ socket }: Props) {
     });
   }, [sorted, settings.showFilterBar, settings.filterBy, filter]);
 
+  const visibleIds = useMemo(() => visible.map((c) => c.id), [visible]);
+  const visibleIdIndex = useMemo(() => {
+    const m = new Map<string, number>();
+    for (let i = 0; i < visibleIds.length; i++) m.set(visibleIds[i]!, i);
+    return m;
+  }, [visibleIds]);
+
   useEffect(() => {
     document.body.classList.toggle('filter-bar-visible', settings.showFilterBar);
   }, [settings.showFilterBar]);
 
   useEffect(() => {
-    const visibleIds = new Set(visible.map((c) => c.id));
     setSelectedIds((prev) => {
       let changed = false;
       const next = new Set<string>();
       for (const id of prev) {
-        if (visibleIds.has(id)) next.add(id);
+        if (visibleIdIndex.has(id)) next.add(id);
         else changed = true;
       }
       return changed ? next : prev;
     });
-    setAnchorId((prev) => (prev && visibleIds.has(prev) ? prev : null));
-    setFocusId((prev) => (prev && visibleIds.has(prev) ? prev : null));
-  }, [visible]);
+    setAnchorId((prev) => (prev && visibleIdIndex.has(prev) ? prev : null));
+    setFocusId((prev) => (prev && visibleIdIndex.has(prev) ? prev : null));
+  }, [visibleIdIndex]);
 
   const clearSelection = () => {
     setSelectedIds(new Set());
@@ -109,57 +115,56 @@ export function App({ socket }: Props) {
       if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && e.key.toLowerCase() === 'a') {
         if (inEditable) return;
         e.preventDefault();
-        setSelectedIds(new Set(visible.map((c) => c.id)));
-        setAnchorId(visible[0]?.id ?? null);
-        setFocusId(visible[visible.length - 1]?.id ?? null);
+        setSelectedIds(new Set(visibleIds));
+        setAnchorId(visibleIds[0] ?? null);
+        setFocusId(visibleIds[visibleIds.length - 1] ?? null);
         return;
       }
 
       if (e.shiftKey && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
         if (inEditable) return;
-        if (visible.length === 0) return;
-        const ids = visible.map((c) => c.id);
+        if (visibleIds.length === 0) return;
         const dir = e.key === 'ArrowDown' ? 1 : -1;
-        const curFocus = focusId && ids.includes(focusId) ? focusId : null;
-        const curAnchor = anchorId && ids.includes(anchorId) ? anchorId : null;
+        const curFocusIdx = focusId !== null ? visibleIdIndex.get(focusId) : undefined;
+        const curAnchorIdx = anchorId !== null ? visibleIdIndex.get(anchorId) : undefined;
         let nextFocusIdx: number;
-        let nextAnchorId: string;
-        if (curFocus && curAnchor) {
-          const fi = ids.indexOf(curFocus);
-          nextFocusIdx = Math.max(0, Math.min(ids.length - 1, fi + dir));
-          nextAnchorId = curAnchor;
+        let nextAnchorIdx: number;
+        if (curFocusIdx !== undefined && curAnchorIdx !== undefined) {
+          nextFocusIdx = Math.max(0, Math.min(visibleIds.length - 1, curFocusIdx + dir));
+          nextAnchorIdx = curAnchorIdx;
         } else {
-          nextFocusIdx = dir === 1 ? 0 : ids.length - 1;
-          nextAnchorId = ids[nextFocusIdx]!;
+          nextFocusIdx = dir === 1 ? 0 : visibleIds.length - 1;
+          nextAnchorIdx = nextFocusIdx;
         }
         e.preventDefault();
-        const ai = ids.indexOf(nextAnchorId);
-        const [lo, hi] = ai < nextFocusIdx ? [ai, nextFocusIdx] : [nextFocusIdx, ai];
-        setSelectedIds(new Set(ids.slice(lo, hi + 1)));
-        setAnchorId(nextAnchorId);
-        setFocusId(ids[nextFocusIdx]!);
+        const [lo, hi] =
+          nextAnchorIdx < nextFocusIdx
+            ? [nextAnchorIdx, nextFocusIdx]
+            : [nextFocusIdx, nextAnchorIdx];
+        setSelectedIds(new Set(visibleIds.slice(lo, hi + 1)));
+        setAnchorId(visibleIds[nextAnchorIdx]!);
+        setFocusId(visibleIds[nextFocusIdx]!);
         return;
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [menu, editor, visible, anchorId, focusId]);
+  }, [menu, editor, visibleIds, visibleIdIndex, anchorId, focusId]);
 
   const onRowClick = (e: MouseEvent, cookie: UICookie) => {
     const additive = e.ctrlKey || e.metaKey;
     const range = e.shiftKey;
     if (range && anchorId) {
-      const ids = visible.map((c) => c.id);
-      const a = ids.indexOf(anchorId);
-      const b = ids.indexOf(cookie.id);
-      if (a === -1 || b === -1) {
+      const a = visibleIdIndex.get(anchorId);
+      const b = visibleIdIndex.get(cookie.id);
+      if (a === undefined || b === undefined) {
         setSelectedIds(new Set([cookie.id]));
         setAnchorId(cookie.id);
         setFocusId(cookie.id);
         return;
       }
       const [lo, hi] = a < b ? [a, b] : [b, a];
-      setSelectedIds(new Set(ids.slice(lo, hi + 1)));
+      setSelectedIds(new Set(visibleIds.slice(lo, hi + 1)));
       setFocusId(cookie.id);
       return;
     }
