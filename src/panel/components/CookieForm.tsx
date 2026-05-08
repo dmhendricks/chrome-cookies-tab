@@ -105,7 +105,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel, showToast }: Pr
         const requested = Math.floor(dt.getTime() / 1000);
         const cap = Math.floor(Date.now() / 1000) + MAX_COOKIE_LIFETIME_SECONDS;
         if (requested > cap) {
-          showToast(t('formExpirationCapped', formatExpiration(new Date(cap * 1000))), 'warn', 6000);
+          showToast(t('formExpirationCapped', formatExpiration(new Date(cap * 1000))), 'warn', 6500);
           values.expirationDate = cap;
         } else {
           values.expirationDate = requested;
