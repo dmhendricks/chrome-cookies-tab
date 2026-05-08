@@ -1,6 +1,5 @@
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import * as v from 'valibot';
-import { Header } from './components/Header';
 import { Content } from './components/Content';
 import { Footer } from './components/Footer';
 import { FilterBar } from './components/FilterBar';
@@ -321,10 +320,11 @@ export function App({ socket }: Props) {
       {settings.showFilterBar && (
         <FilterBar value={filter} filterBy={settings.filterBy} onChange={setFilter} />
       )}
-      <Header widths={widths} sort={sort} onSort={onSort} />
       <Content
         cookies={visible}
         widths={widths}
+        sort={sort}
+        onSort={onSort}
         showCopyIcons={settings.showCopyIcons}
         selectedIds={selectedIds}
         onRowClick={onRowClick}

@@ -34,6 +34,9 @@
 
   --content-stripe: rgba(0, 0, 0, 0.05);
 
+  --scrollbar-thumb: rgba(0, 0, 0, 0.28);
+  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.45);
+
   --context-menu-bg: #ffffff;
   --context-menu-text: #1f1f1f;
   --context-menu-border: rgba(196, 196, 196, 0.9);
@@ -73,6 +76,9 @@
 
   --content-stripe: rgba(255, 255, 255, 0.025);
 
+  --scrollbar-thumb: rgba(255, 255, 255, 0.22);
+  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.4);
+
   --context-menu-bg: #3c3c3c;
   --context-menu-text: #e8e8e8;
   --context-menu-border: #5e5e5e;
@@ -106,16 +112,43 @@ table {
   z-index: 5;
 }
 
-#header {
+#content {
   position: absolute;
   top: 0;
+  bottom: 23px;
   left: 0;
   right: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    background-clip: padding-box;
+    border: 3px solid transparent;
+    border-radius: 7px;
+    min-height: 24px;
+
+    &:hover {
+      background: var(--scrollbar-thumb-hover);
+      background-clip: padding-box;
+    }
+  }
 
   table {
     table-layout: fixed;
 
-    th {
+    thead th {
+      position: sticky;
+      top: 0;
+      z-index: 1;
       background: var(--header-bg);
       color: var(--text);
       border-bottom: 1px solid var(--border);
@@ -149,41 +182,12 @@ table {
         background: var(--header-bg-active);
       }
 
-      &.corner {
-        cursor: default;
-
-        &:active {
-          background: -webkit-gradient(
-            linear,
-            left top,
-            left bottom,
-            from(rgb(236, 236, 236)),
-            to(rgb(217, 217, 217))
-          );
-          background-repeat: repeat-x;
-        }
-      }
-
       div {
         white-space: nowrap;
         text-overflow: ellipsis;
         overflow: hidden;
       }
     }
-  }
-}
-
-#content {
-  position: absolute;
-  top: 23px;
-  bottom: 23px;
-  left: 0;
-  right: 0;
-  overflow-x: hidden;
-  overflow-y: overlay;
-
-  table {
-    table-layout: fixed;
     background-image: linear-gradient(
       to bottom,
       transparent 0,
@@ -609,12 +613,8 @@ table {
 }
 
 body.filter-bar-visible {
-  #header {
-    top: 28px;
-  }
-
   #content {
-    top: 51px;
+    top: 28px;
   }
 
   .resizer {

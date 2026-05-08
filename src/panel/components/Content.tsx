@@ -1,10 +1,29 @@
 import { useMemo } from 'preact/hooks';
-import type { UICookie } from '../types';
+import type { SortColumn, SortState, UICookie } from '../types';
 import { CookieRow } from './CookieRow';
+import { t } from '../i18n';
+
+interface Col {
+  key: SortColumn;
+  labelKey: string;
+}
+
+const COLS: Col[] = [
+  { key: 'name', labelKey: 'columnName' },
+  { key: 'value', labelKey: 'columnValue' },
+  { key: 'domain', labelKey: 'columnDomain' },
+  { key: 'size', labelKey: 'columnSize' },
+  { key: 'path', labelKey: 'columnPath' },
+  { key: 'expires', labelKey: 'columnExpires' },
+  { key: 'httpOnly', labelKey: 'columnHttpOnly' },
+  { key: 'secure', labelKey: 'columnSecure' },
+];
 
 interface Props {
   cookies: UICookie[];
   widths: number[];
+  sort: SortState | null;
+  onSort: (col: SortColumn) => void;
   showCopyIcons: boolean;
   selectedIds: Set<string>;
   onRowClick: (e: MouseEvent, c: UICookie) => void;
@@ -14,11 +33,13 @@ interface Props {
   onRowDoubleClick: (c: UICookie) => void;
 }
 
-const FILLER_CELLS = Array.from({ length: 9 }, (_, i) => <td key={i}></td>);
+const FILLER_CELLS = Array.from({ length: 8 }, (_, i) => <td key={i}></td>);
 
 export function Content({
   cookies,
   widths,
+  sort,
+  onSort,
   showCopyIcons,
   selectedIds,
   onRowClick,
@@ -33,7 +54,6 @@ export function Content({
         {widths.map((w, i) => (
           <col key={i} style={{ width: `${w}%` }} />
         ))}
-        <col style={{ width: '14px' }} />
       </colgroup>
     ),
     [widths],
@@ -41,8 +61,25 @@ export function Content({
 
   return (
     <div id="content">
-      <table style={{ width: '100%', height: '100%' }}>
+      <table style={{ width: '100%' }}>
         {cols}
+        <thead>
+          <tr>
+            {COLS.map((c) => {
+              const cls = sort?.column === c.key ? sort.dir : '';
+              return (
+                <th
+                  key={c.key}
+                  data-col={c.key}
+                  className={cls}
+                  onClick={() => onSort(c.key)}
+                >
+                  <div>{t(c.labelKey)}</div>
+                </th>
+              );
+            })}
+          </tr>
+        </thead>
         <tbody>
           {cookies.map((c) => (
             <CookieRow

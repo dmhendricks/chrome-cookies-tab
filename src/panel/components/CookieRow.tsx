@@ -111,7 +111,6 @@ export function CookieRow({
       </td>
       <td>{cookie.httpOnly ? <div className="green">{t('rowTrue')}</div> : null}</td>
       <td>{cookie.secure ? <div className="green">{t('rowTrue')}</div> : null}</td>
-      <td></td>
     </tr>
   );
 }

@@ -11,12 +11,18 @@ export function Resizers({ widths, onResize }: Props) {
 
   useEffect(() => {
     const update = () => {
-      const el = containerRef.current?.parentElement;
+      const el = document.getElementById('content');
       if (el) setContainerWidth(el.clientWidth);
     };
     update();
     window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
+    const el = document.getElementById('content');
+    const ro = el && 'ResizeObserver' in window ? new ResizeObserver(update) : null;
+    if (ro && el) ro.observe(el);
+    return () => {
+      window.removeEventListener('resize', update);
+      ro?.disconnect();
+    };
   }, []);
 
   // Lefts in pixels for each resizer (skip last column boundary).
