@@ -1,12 +1,31 @@
 import type { UICookie, SortColumn, SortDir } from './types';
 
+const byteEncoder = new TextEncoder();
+
 export function cookieSize(c: UICookie): number {
-  return (c.name ?? '').length + (c.value ?? '').length;
+  return byteEncoder.encode((c.name ?? '') + (c.value ?? '')).byteLength;
 }
 
 export function expirationDate(c: UICookie): Date | null {
   if (c.expirationDate === undefined || c.expirationDate === null) return null;
   return new Date(c.expirationDate * 1000);
+}
+
+const expirationFormatter = new Intl.DateTimeFormat(
+  chrome.i18n.getUILanguage(),
+  {
+    year: 'numeric',
+    month: 'short',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false,
+  },
+);
+
+export function formatExpiration(d: Date): string {
+  return expirationFormatter.format(d);
 }
 
 export function isSession(c: UICookie): boolean {

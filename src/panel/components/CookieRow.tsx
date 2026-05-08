@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import type { UICookie } from '../types';
-import { cookieSize, expirationDate, isSession } from '../util';
+import { cookieSize, expirationDate, formatExpiration, isSession } from '../util';
 import { t } from '../i18n';
 
 interface Props {
@@ -106,7 +106,7 @@ export function CookieRow({
         {session ? (
           <div className="green">{t('rowSession')}</div>
         ) : (
-          <div>{expires ? expires.toString() : ''}</div>
+          <div>{expires ? formatExpiration(expires) : ''}</div>
         )}
       </td>
       <td>{cookie.httpOnly ? <div className="green">{t('rowTrue')}</div> : null}</td>

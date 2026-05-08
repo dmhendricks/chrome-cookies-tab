@@ -4,6 +4,8 @@
 
 - Localize the extension via `chrome.i18n`. All panel UI strings and the manifest `name` / `short_name` / `description` now resolve through `_locales/<lang>/messages.json`, so the Chrome Web Store listing localizes alongside the UI and adding a new language is a drop-in JSON file with no code changes.
 - Added Spanish (`es`), French (`fr`), German (`de`), Brazilian Portuguese (`pt_BR`), Dutch (`nl`), Italian (`it`), Polish (`pl`), and Turkish (`tr`) translations.
+- Localize the Expires column via `Intl.DateTimeFormat` so month names render in the active UI language. Drop the `(GMT)` annotation and render in the user's local timezone.
+- Fix the Size column to report actual UTF-8 byte length instead of character count. Cookies with non-ASCII content (e.g. UTF-8 values like `café`) were previously under-counted.
 
 ### Release 3.1.0
 

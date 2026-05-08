@@ -37,8 +37,8 @@
     "description": "Column header — cookie path."
   },
   "columnExpires": {
-    "message": "Caduca (GMT)",
-    "description": "Column header — cookie expiration date in GMT timezone."
+    "message": "Caduca",
+    "description": "Column header — cookie expiration date (rendered in the user's local timezone)."
   },
   "columnHttpOnly": {
     "message": "HTTP",
