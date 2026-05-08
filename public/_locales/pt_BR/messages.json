@@ -105,6 +105,13 @@
     "message": "Salvar",
     "description": "Button — save the cookie in the edit/add form."
   },
+  "formExpirationCapped": {
+    "message": "Seu navegador limita a vida útil dos cookies a 400 dias. A expiração será definida para $DATE$.",
+    "description": "Alert shown when the user picks an expiration more than 400 days in the future. Chrome (per RFC 6265bis) clamps the value, so we tell the user the date that will actually be stored. $DATE$ is the localized capped date.",
+    "placeholders": {
+      "date": { "content": "$1", "example": "Jun 11, 2027, 14:30:00" }
+    }
+  },
 
   "menuAddNew": {
     "message": "Adicionar novo cookie",

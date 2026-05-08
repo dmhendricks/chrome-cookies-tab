@@ -6,6 +6,7 @@
 - Added Spanish (`es`), French (`fr`), German (`de`), Brazilian Portuguese (`pt_BR`), Dutch (`nl`), Italian (`it`), Polish (`pl`), and Turkish (`tr`) translations.
 - Localize the Expires column via `Intl.DateTimeFormat` so month names render in the active UI language. Drop the `(GMT)` annotation and render in the user's local timezone.
 - Fix the Size column to report actual UTF-8 byte length instead of character count. Cookies with non-ASCII content (e.g. UTF-8 values like `café`) were previously under-counted.
+- Detect and surface the browser's RFC 6265bis 400-day cookie lifetime cap. When the user picks an expiration further out, clamp the request to 400 days and notify them of the date that will actually be stored.
 
 ### Release 3.1.0
 

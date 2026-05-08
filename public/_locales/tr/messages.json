@@ -105,6 +105,13 @@
     "message": "Kaydet",
     "description": "Button — save the cookie in the edit/add form."
   },
+  "formExpirationCapped": {
+    "message": "Tarayıcınız çerez ömrünü 400 gün ile sınırlar. Son kullanma tarihi $DATE$ olarak ayarlanacak.",
+    "description": "Alert shown when the user picks an expiration more than 400 days in the future. Chrome (per RFC 6265bis) clamps the value, so we tell the user the date that will actually be stored. $DATE$ is the localized capped date.",
+    "placeholders": {
+      "date": { "content": "$1", "example": "Jun 11, 2027, 14:30:00" }
+    }
+  },
 
   "menuAddNew": {
     "message": "Yeni çerez ekle",

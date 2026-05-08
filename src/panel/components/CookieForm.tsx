@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import type { UICookie } from '../types';
-import { expirationDate, isSession } from '../util';
+import { expirationDate, formatExpiration, isSession } from '../util';
 import { t } from '../i18n';
+
+// Chrome enforces RFC 6265bis: cookies whose Max-Age/Expires exceeds 400 days
+// are silently capped. We warn the user and let them proceed.
+const MAX_COOKIE_LIFETIME_SECONDS = 400 * 24 * 60 * 60;
 
 export interface FormValues {
   name: string;
@@ -20,6 +24,7 @@ interface Props {
   isNew: boolean;
   onSubmit: (values: FormValues) => void;
   onCancel: () => void;
+  showToast: (message: string, durationMs?: number) => void;
 }
 
 function pad(n: number): string {
@@ -30,7 +35,7 @@ function toDatetimeLocal(d: Date): string {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
 }
 
-export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
+export function CookieForm({ initial, isNew, onSubmit, onCancel, showToast }: Props) {
   const initialDate = expirationDate(initial);
   const valueRef = useRef<HTMLTextAreaElement>(null);
   const viewRef = useRef<HTMLDivElement>(null);
@@ -96,7 +101,14 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel }: Props) {
     if (!session) {
       const dt = new Date(expires);
       if (!Number.isNaN(dt.getTime())) {
-        values.expirationDate = Math.floor(dt.getTime() / 1000);
+        const requested = Math.floor(dt.getTime() / 1000);
+        const cap = Math.floor(Date.now() / 1000) + MAX_COOKIE_LIFETIME_SECONDS;
+        if (requested > cap) {
+          showToast(t('formExpirationCapped', formatExpiration(new Date(cap * 1000))), 6000);
+          values.expirationDate = cap;
+        } else {
+          values.expirationDate = requested;
+        }
       }
     }
     onSubmit(values);

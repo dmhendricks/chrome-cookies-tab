@@ -7,7 +7,9 @@ import { FilterBar } from './components/FilterBar';
 import { ContextMenu } from './components/ContextMenu';
 import { CookieForm, type FormValues } from './components/CookieForm';
 import { Resizers } from './components/Resizers';
+import { Toasts } from './components/Toasts';
 import { useCookies } from './hooks/useCookies';
+import { useToasts } from './hooks/useToasts';
 import { useColumnResize } from './hooks/useColumnResize';
 import { useSettings } from './hooks/useSettings';
 import { buildExportFilename, sortCookies } from './util';
@@ -36,6 +38,7 @@ export function App({ socket }: Props) {
     useCookies(socket);
   const { widths, resize } = useColumnResize();
   const { settings, setSetting } = useSettings();
+  const { toasts, showToast, dismissToast } = useToasts();
   const [sort, setSort] = useState<SortState | null>(null);
   const [menu, setMenu] = useState<MenuState | null>(null);
   const [editor, setEditor] = useState<EditorState | null>(null);
@@ -364,8 +367,10 @@ export function App({ socket }: Props) {
           isNew={editor.isNew}
           onSubmit={onSubmitForm}
           onCancel={() => setEditor(null)}
+          showToast={showToast}
         />
       )}
+      <Toasts toasts={toasts} onDismiss={dismissToast} />
     </>
   );
 }

@@ -712,3 +712,43 @@ body.filter-bar-visible {
   }
 
 }
+
+.toast-stack {
+  position: fixed;
+  right: 12px;
+  top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  z-index: 1000;
+  pointer-events: none;
+  max-width: min(360px, calc(100vw - 24px));
+}
+
+.toast {
+  --toast-duration: 4000ms;
+  --toast-fade-out: 240ms;
+  background: var(--context-menu-bg);
+  color: var(--context-menu-text);
+  border: 1px solid var(--context-menu-border);
+  border-left: 3px solid var(--accent-blue);
+  border-radius: 3px;
+  box-shadow: var(--context-menu-shadow);
+  padding: 8px 10px;
+  font-size: 11px;
+  line-height: 1.4;
+  pointer-events: auto;
+  cursor: pointer;
+  animation:
+    toast-in 140ms ease-out,
+    toast-out var(--toast-fade-out) ease-in calc(var(--toast-duration) - var(--toast-fade-out)) forwards;
+}
+
+@keyframes toast-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes toast-out {
+  to { opacity: 0; transform: translateY(-4px); }
+}
