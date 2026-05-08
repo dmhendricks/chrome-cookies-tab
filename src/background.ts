@@ -31,15 +31,26 @@ function send(port: chrome.runtime.Port, command: string, data: unknown): void {
   }
 }
 
-async function onDOMContentLoaded(
-  details: chrome.webNavigation.WebNavigationFramedCallbackDetails,
+async function pushCookies(tabId: number): Promise<void> {
+  const port = ports.get(tabId);
+  if (!port) return;
+  if (paused.has(tabId)) return;
+  const cookies = await CookieService.list(tabId);
+  send(port, 'cookies:read', { cookies });
+}
+
+async function onCommitted(
+  details: chrome.webNavigation.WebNavigationTransitionCallbackDetails,
 ): Promise<void> {
   if (details.frameId !== 0) return;
-  const port = ports.get(details.tabId);
-  if (!port) return;
-  if (paused.has(details.tabId)) return;
-  const cookies = await CookieService.list(details.tabId);
-  send(port, 'cookies:read', { cookies });
+  await pushCookies(details.tabId);
+}
+
+async function onHistoryStateUpdated(
+  details: chrome.webNavigation.WebNavigationTransitionCallbackDetails,
+): Promise<void> {
+  if (details.frameId !== 0) return;
+  await pushCookies(details.tabId);
 }
 
 function onBeforeNavigate(
@@ -53,14 +64,16 @@ function onBeforeNavigate(
 }
 
 function attachNavigationListeners(): void {
-  if (chrome.webNavigation.onDOMContentLoaded.hasListener(onDOMContentLoaded)) return;
-  chrome.webNavigation.onDOMContentLoaded.addListener(onDOMContentLoaded);
+  if (chrome.webNavigation.onCommitted.hasListener(onCommitted)) return;
+  chrome.webNavigation.onCommitted.addListener(onCommitted);
+  chrome.webNavigation.onHistoryStateUpdated.addListener(onHistoryStateUpdated);
   chrome.webNavigation.onBeforeNavigate.addListener(onBeforeNavigate);
 }
 
 function detachNavigationListeners(): void {
-  if (!chrome.webNavigation.onDOMContentLoaded.hasListener(onDOMContentLoaded)) return;
-  chrome.webNavigation.onDOMContentLoaded.removeListener(onDOMContentLoaded);
+  if (!chrome.webNavigation.onCommitted.hasListener(onCommitted)) return;
+  chrome.webNavigation.onCommitted.removeListener(onCommitted);
+  chrome.webNavigation.onHistoryStateUpdated.removeListener(onHistoryStateUpdated);
   chrome.webNavigation.onBeforeNavigate.removeListener(onBeforeNavigate);
 }
 
