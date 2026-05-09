@@ -261,9 +261,5 @@
     "placeholders": {
       "count": { "content": "$1", "example": "12" }
     }
-  },
-  "exportFilenameSegment": {
-    "message": "cookies",
-    "description": "The middle segment of the export filename (e.g. example-com.cookies.2026-05-08.json). Use a lowercase, ASCII-only word with no spaces or punctuation, suitable for filenames across operating systems."
   }
 }

@@ -1,7 +1,6 @@
 # Cookies Tab in DevTools
 
-A cookie manager for Google Chrome. Edit and create cookies right
-in the Developer Tools. Forked from [westoque/cookie_inspector](https://github.com/westoque/cookie_inspector) and modernized.
+This Chrome extension allows you to easily browse, filter and modify cookies via a custom tab in Chrome Developer Tools. Multi-select rows for bulk delete or export, copy values with one click, and fetch a fresh cookie list automatically as you navigate. Forked from [westoque/cookie_inspector](https://github.com/westoque/cookie_inspector) and modernized.
 
 ![Cookies Tab in DevTools Screenshot](store/screenshot-1280x550.png)
 

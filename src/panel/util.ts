@@ -1,5 +1,4 @@
 import type { UICookie, SortColumn, SortDir } from './types';
-import { t } from './i18n';
 
 const byteEncoder = new TextEncoder();
 
@@ -73,12 +72,8 @@ export function buildExportFilename(tabUrl: string | undefined, now: Date = new 
       host = '';
     }
   }
-  const slug = (t('exportFilenameSegment') || 'cookies')
-    .toLowerCase()
-    .replace(/[^a-z0-9-]+/g, '-')
-    .replace(/^-+|-+$/g, '') || 'cookies';
-  if (!host || isIpAddress(host)) return `${slug}.${date}.json`;
-  return `${host.replace(/\./g, '-')}.${slug}.${date}.json`;
+  if (!host || isIpAddress(host)) return `cookies.${date}.json`;
+  return `${host.replace(/\./g, '-')}.cookies.${date}.json`;
 }
 
 export function sortCookies(
