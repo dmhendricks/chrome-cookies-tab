@@ -1,0 +1,269 @@
+{
+  "extName": {
+    "message": "Separador de Cookies nas Ferramentas de programador",
+    "description": "Extension name shown in Chrome Web Store and chrome://extensions."
+  },
+  "extShortName": {
+    "message": "Separador de Cookies",
+    "description": "Short extension name shown when space is constrained."
+  },
+  "extDescription": {
+    "message": "Gestão simples de cookies através de um separador dedicado nas Ferramentas de programador",
+    "description": "Extension description shown in Chrome Web Store and chrome://extensions."
+  },
+  "panelTabTitle": {
+    "message": "Cookies",
+    "description": "Label of the extension's tab inside Chrome DevTools (sits next to Elements, Console, Network, etc.)."
+  },
+
+  "columnName": {
+    "message": "Nome",
+    "description": "Column header — cookie name."
+  },
+  "columnValue": {
+    "message": "Valor",
+    "description": "Column header — cookie value."
+  },
+  "columnDomain": {
+    "message": "Domínio",
+    "description": "Column header — cookie domain."
+  },
+  "columnSize": {
+    "message": "Tamanho",
+    "description": "Column header — cookie size in bytes."
+  },
+  "columnPath": {
+    "message": "Caminho",
+    "description": "Column header — cookie path."
+  },
+  "columnExpires": {
+    "message": "Expira",
+    "description": "Column header — cookie expiration date (rendered in the user's local timezone)."
+  },
+  "columnHttpOnly": {
+    "message": "HTTP",
+    "description": "Column header — abbreviated label for the HttpOnly flag."
+  },
+  "columnSecure": {
+    "message": "Seguro",
+    "description": "Column header — Secure flag."
+  },
+
+  "formAddTitle": {
+    "message": "Adicionar cookie",
+    "description": "Header text shown above the form when adding a new cookie."
+  },
+  "formEditTitle": {
+    "message": "Editar cookie",
+    "description": "Header text shown above the form when editing an existing cookie."
+  },
+  "formClose": {
+    "message": "Fechar",
+    "description": "Tooltip and accessible label for the form's close (X) button."
+  },
+  "formName": {
+    "message": "Nome",
+    "description": "Label for the cookie name input in the edit/add form."
+  },
+  "formValue": {
+    "message": "Valor",
+    "description": "Label for the cookie value input in the edit/add form."
+  },
+  "formDomain": {
+    "message": "Domínio",
+    "description": "Label for the cookie domain input in the edit/add form."
+  },
+  "formPath": {
+    "message": "Caminho",
+    "description": "Label for the cookie path input in the edit/add form."
+  },
+  "formExpires": {
+    "message": "Expira",
+    "description": "Label for the cookie expiration date input in the edit/add form."
+  },
+  "formFlagSession": {
+    "message": "Sessão",
+    "description": "Checkbox label — marks the cookie as a session cookie (deleted when browser closes)."
+  },
+  "formFlagHostOnly": {
+    "message": "Apenas anfitrião",
+    "description": "Checkbox label — restricts cookie to the exact host, no subdomains."
+  },
+  "formFlagHttpOnly": {
+    "message": "Apenas HTTP",
+    "description": "Checkbox label — cookie is inaccessible to JavaScript (HttpOnly attribute)."
+  },
+  "formFlagSecure": {
+    "message": "Seguro",
+    "description": "Checkbox label — cookie is only sent over HTTPS (Secure attribute)."
+  },
+  "formCancel": {
+    "message": "Cancelar",
+    "description": "Button — discard changes and close the edit/add form."
+  },
+  "formSave": {
+    "message": "Guardar",
+    "description": "Button — save the cookie in the edit/add form."
+  },
+  "formExpirationCapped": {
+    "message": "O seu navegador limita a duração dos cookies a 400 dias. A data de expiração será definida para $DATE$.",
+    "description": "Alert shown when the user picks an expiration more than 400 days in the future. Chrome (per RFC 6265bis) clamps the value, so we tell the user the date that will actually be stored. $DATE$ is the localized capped date.",
+    "placeholders": {
+      "date": { "content": "$1", "example": "Jun 11, 2027, 14:30:00" }
+    }
+  },
+
+  "menuAddNew": {
+    "message": "Adicionar novo cookie",
+    "description": "Context menu item — open the form to add a new cookie."
+  },
+  "menuEdit": {
+    "message": "Editar cookie",
+    "description": "Context menu item — edit the single cookie that was right-clicked."
+  },
+  "menuRefresh": {
+    "message": "Atualizar",
+    "description": "Context menu item — reload the cookie list from the browser."
+  },
+  "menuDelete": {
+    "message": "Eliminar cookie",
+    "description": "Context menu item — delete the single cookie that was right-clicked."
+  },
+  "menuDeleteSelected": {
+    "message": "Eliminar selecionados ($COUNT$)",
+    "description": "Context menu item shown when multiple cookies are selected. $COUNT$ is the number of selected cookies.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuDeleteAll": {
+    "message": "Eliminar todos os cookies",
+    "description": "Context menu item — delete every cookie currently shown."
+  },
+  "menuExportSelected": {
+    "message": "Exportar selecionados ($COUNT$)",
+    "description": "Context menu item shown when one or more cookies are selected. $COUNT$ is the number of selected cookies.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuExportAll": {
+    "message": "Exportar todos os cookies",
+    "description": "Context menu item — export every cookie currently shown to a JSON file."
+  },
+  "menuImport": {
+    "message": "Importar cookies",
+    "description": "Context menu item — import cookies from a JSON file."
+  },
+  "cookiesExported": {
+    "message": "$COUNT$ cookies exportados",
+    "description": "Toast shown after the user exports cookies to a JSON file. $COUNT$ is the number of cookies written to the file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "cookiesImported": {
+    "message": "$COUNT$ cookies importados",
+    "description": "Toast shown after the user imports cookies from a JSON file. $COUNT$ is the number of cookies read from the file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+
+  "settingsTitle": {
+    "message": "Definições",
+    "description": "Tooltip and accessible label for the gear icon that opens the settings popover."
+  },
+  "settingsShowCopyIcons": {
+    "message": "Mostrar ícones para copiar para a área de transferência",
+    "description": "Settings checkbox — toggle visibility of the small copy icons next to cookie name/value cells."
+  },
+  "settingsShowFilterBar": {
+    "message": "Mostrar barra de filtro",
+    "description": "Settings checkbox — toggle visibility of the filter input at the top of the panel."
+  },
+  "settingsFilterBy": {
+    "message": "Filtrar por",
+    "description": "Settings label preceding a dropdown that selects which field the filter bar matches against."
+  },
+  "settingsFilterByName": {
+    "message": "Nome",
+    "description": "Filter-by dropdown option — match against cookie name only."
+  },
+  "settingsFilterByValue": {
+    "message": "Valor",
+    "description": "Filter-by dropdown option — match against cookie value only."
+  },
+  "settingsFilterByNameValue": {
+    "message": "Nome ou valor",
+    "description": "Filter-by dropdown option — match against either cookie name or value."
+  },
+
+  "filterPlaceholderName": {
+    "message": "Filtrar por nome",
+    "description": "Placeholder text in the filter input when filtering by name."
+  },
+  "filterPlaceholderValue": {
+    "message": "Filtrar por valor",
+    "description": "Placeholder text in the filter input when filtering by value."
+  },
+  "filterPlaceholderNameValue": {
+    "message": "Filtrar por nome ou valor",
+    "description": "Placeholder text in the filter input when filtering by either name or value."
+  },
+
+  "footerTotalCookies": {
+    "message": "Total de cookies:",
+    "description": "Footer label preceding the total cookie count number."
+  },
+  "footerSelected": {
+    "message": "Selecionados:",
+    "description": "Footer label preceding the count of currently selected cookies (only shown when 2+ are selected)."
+  },
+
+  "rowSession": {
+    "message": "Sessão",
+    "description": "Cell text in the Expires column for cookies that expire when the browser session ends."
+  },
+  "rowTrue": {
+    "message": "Sim",
+    "description": "Cell text in the HTTP-Only and Secure columns when the flag is set."
+  },
+  "rowCopy": {
+    "message": "Copiar",
+    "description": "Tooltip on the small copy-to-clipboard icon in cookie name/value cells."
+  },
+
+  "importInvalidJson": {
+    "message": "Falha ao importar cookies: $REASON$",
+    "description": "Alert shown when the imported file is not valid JSON. $REASON$ is the parser's error message.",
+    "placeholders": {
+      "reason": { "content": "$1", "example": "Unexpected token } in JSON at position 42" }
+    }
+  },
+  "importSchemaFailed": {
+    "message": "Falha ao importar cookies:\n$DETAILS$",
+    "description": "Alert shown when the imported JSON does not match the expected cookie schema. $DETAILS$ is a multi-line summary of validation issues.",
+    "placeholders": {
+      "details": { "content": "$1", "example": "0.name: Required\n1.domain: Invalid type" }
+    }
+  },
+  "importMoreIssues": {
+    "message": "\n…e mais $COUNT$",
+    "description": "Suffix appended to the schema-failure alert when more than 3 validation issues exist. $COUNT$ is the number of additional issues not shown.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "5" }
+    }
+  },
+  "importConfirm": {
+    "message": "Importar $COUNT$ cookies? Os cookies existentes com o mesmo nome, domínio e caminho serão substituídos.",
+    "description": "Confirmation dialog shown before importing cookies. $COUNT$ is the number of cookies in the import file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "exportFilenameSegment": {
+    "message": "cookies",
+    "description": "Filename segment used in exported JSON files (e.g. \"example-com.cookies.2026-05-08.json\"). Keep ASCII; cross-platform filename safety matters more than translation."
+  }
+}
