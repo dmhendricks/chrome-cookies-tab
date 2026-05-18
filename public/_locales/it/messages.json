@@ -140,9 +140,13 @@
     "message": "Elimina tutti i cookie",
     "description": "Context menu item — delete every cookie currently shown."
   },
+  "menuExport": {
+    "message": "Esporta cookie",
+    "description": "Context menu item — export the single cookie that was right-clicked."
+  },
   "menuExportSelected": {
     "message": "Esporta selezionati ($COUNT$)",
-    "description": "Context menu item shown when one or more cookies are selected. $COUNT$ is the number of selected cookies.",
+    "description": "Context menu item shown when multiple cookies are selected. $COUNT$ is the number of selected cookies.",
     "placeholders": {
       "count": { "content": "$1", "example": "3" }
     }

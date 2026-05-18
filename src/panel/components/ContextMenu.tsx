@@ -90,7 +90,9 @@ export function ContextMenu({ x, y, isInRow, selectedCount, actions, onDismiss }
           )}
         {item('remove-all-cookies', t('menuDeleteAll'), actions.onRemoveAll)}
         <div className="context-menu-item-separator"></div>
-        {selectedCount > 0 &&
+        {selectedCount === 1 &&
+          item('export-selected-cookies', t('menuExport'), actions.onExportSelected)}
+        {selectedCount > 1 &&
           item(
             'export-selected-cookies',
             t('menuExportSelected', String(selectedCount)),
