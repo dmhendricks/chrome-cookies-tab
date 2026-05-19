@@ -41,7 +41,7 @@ Load the extension in Chrome from `chrome://extensions` â†’ **Load unpacked** â†
 ## Translations
 
 - **Translations were done by AI:** Spanish, French, German, Italian, Turkish, Polish, Romanian, Dutch, Czech, Portuguese
-- **Translations done by humans:** Korean, Japanese
+- **Translations done by humans:** Chinese (Simplified), Korean, Japanese
 
 If you spot an error or opportunities for improvement, please submit it.
 

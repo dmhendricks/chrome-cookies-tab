@@ -90,7 +90,7 @@
     "description": "Checkbox label — restricts cookie to the exact host, no subdomains."
   },
   "formFlagHttpOnly": {
-    "message": "仅HTTP",
+    "message": "仅 HTTP",
     "description": "Checkbox label — cookie is inaccessible to JavaScript (HttpOnly attribute)."
   },
   "formFlagSecure": {
