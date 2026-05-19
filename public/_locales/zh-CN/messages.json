@@ -1,0 +1,269 @@
+{
+  "extName": {
+    "message": "开发者工具中的 Cookie 标签",
+    "description": "Extension name shown in Chrome Web Store and chrome://extensions."
+  },
+  "extShortName": {
+    "message": "Cookie 标签",
+    "description": "Short extension name shown when space is constrained."
+  },
+  "extDescription": {
+    "message": "通过开发者工具中的专用标签页轻松管理 Cookie",
+    "description": "Extension description shown in Chrome Web Store and chrome://extensions."
+  },
+  "panelTabTitle": {
+    "message": "Cookie",
+    "description": "Label of the extension's tab inside Chrome DevTools (sits next to Elements, Console, Network, etc.)."
+  },
+
+  "columnName": {
+    "message": "名称",
+    "description": "Column header — cookie name."
+  },
+  "columnValue": {
+    "message": "值",
+    "description": "Column header — cookie value."
+  },
+  "columnDomain": {
+    "message": "域名",
+    "description": "Column header — cookie domain."
+  },
+  "columnSize": {
+    "message": "大小",
+    "description": "Column header — cookie size in bytes."
+  },
+  "columnPath": {
+    "message": "路径",
+    "description": "Column header — cookie path."
+  },
+  "columnExpires": {
+    "message": "过期时间",
+    "description": "Column header — cookie expiration date (rendered in the user's local timezone)."
+  },
+  "columnHttpOnly": {
+    "message": "HTTP",
+    "description": "Column header — abbreviated label for the HttpOnly flag."
+  },
+  "columnSecure": {
+    "message": "安全",
+    "description": "Column header — Secure flag."
+  },
+
+  "formAddTitle": {
+    "message": "添加 Cookie",
+    "description": "Header text shown above the form when adding a new cookie."
+  },
+  "formEditTitle": {
+    "message": "编辑 Cookie",
+    "description": "Header text shown above the form when editing an existing cookie."
+  },
+  "formClose": {
+    "message": "关闭",
+    "description": "Tooltip and accessible label for the form's close (X) button."
+  },
+  "formName": {
+    "message": "名称",
+    "description": "Label for the cookie name input in the edit/add form."
+  },
+  "formValue": {
+    "message": "值",
+    "description": "Label for the cookie value input in the edit/add form."
+  },
+  "formDomain": {
+    "message": "域名",
+    "description": "Label for the cookie domain input in the edit/add form."
+  },
+  "formPath": {
+    "message": "路径",
+    "description": "Label for the cookie path input in the edit/add form."
+  },
+  "formExpires": {
+    "message": "过期时间",
+    "description": "Label for the cookie expiration date input in the edit/add form."
+  },
+  "formFlagSession": {
+    "message": "会话",
+    "description": "Checkbox label — marks the cookie as a session cookie (deleted when browser closes)."
+  },
+  "formFlagHostOnly": {
+    "message": "仅限主机",
+    "description": "Checkbox label — restricts cookie to the exact host, no subdomains."
+  },
+  "formFlagHttpOnly": {
+    "message": "仅HTTP",
+    "description": "Checkbox label — cookie is inaccessible to JavaScript (HttpOnly attribute)."
+  },
+  "formFlagSecure": {
+    "message": "安全连接",
+    "description": "Checkbox label — cookie is only sent over HTTPS (Secure attribute)."
+  },
+  "formCancel": {
+    "message": "取消",
+    "description": "Button — discard changes and close the edit/add form."
+  },
+  "formSave": {
+    "message": "保存",
+    "description": "Button — save the cookie in the edit/add form."
+  },
+  "formExpirationCapped": {
+    "message": "您的浏览器限制 Cookie 最长有效期为 400 天，过期时间将设为 $DATE$。",
+    "description": "Alert shown when the user picks an expiration more than 400 days in the future. Chrome (per RFC 6265bis) clamps the value, so we tell the user the date that will actually be stored. $DATE$ is the localized capped date.",
+    "placeholders": {
+      "date": { "content": "$1", "example": "Jun 11, 2027, 14:30:00" }
+    }
+  },
+
+  "menuAddNew": {
+    "message": "添加新 Cookie",
+    "description": "Context menu item — open the form to add a new cookie."
+  },
+  "menuEdit": {
+    "message": "编辑 Cookie",
+    "description": "Context menu item — edit the single cookie that was right-clicked."
+  },
+  "menuRefresh": {
+    "message": "刷新",
+    "description": "Context menu item — reload the cookie list from the browser."
+  },
+  "menuDelete": {
+    "message": "删除 Cookie",
+    "description": "Context menu item — delete the single cookie that was right-clicked."
+  },
+  "menuDeleteSelected": {
+    "message": "删除已选中的 ($COUNT$) 个",
+    "description": "Context menu item shown when multiple cookies are selected. $COUNT$ is the number of selected cookies.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuDeleteAll": {
+    "message": "删除全部 Cookie",
+    "description": "Context menu item — delete every cookie currently shown."
+  },
+  "menuExport": {
+    "message": "导出 Cookie",
+    "description": "Context menu item — export the single cookie that was right-clicked."
+  },
+  "menuExportSelected": {
+    "message": "导出已选中的 ($COUNT$) 个",
+    "description": "Context menu item shown when multiple cookies are selected. $COUNT$ is the number of selected cookies.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuExportAll": {
+    "message": "导出全部 Cookie",
+    "description": "Context menu item — export every cookie currently shown to a JSON file."
+  },
+  "menuImport": {
+    "message": "导入 Cookie",
+    "description": "Context menu item — import cookies from a JSON file."
+  },
+  "cookiesExported": {
+    "message": "$COUNT$ 个 Cookie 已导出",
+    "description": "Toast shown after the user exports cookies to a JSON file. $COUNT$ is the number of cookies written to the file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "cookiesImported": {
+    "message": "$COUNT$ 个 Cookie 已导入",
+    "description": "Toast shown after the user imports cookies from a JSON file. $COUNT$ is the number of cookies read from the file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+
+  "settingsTitle": {
+    "message": "设置",
+    "description": "Tooltip and accessible label for the gear icon that opens the settings popover."
+  },
+  "settingsShowCopyIcons": {
+    "message": "显示复制到剪贴板图标",
+    "description": "Settings checkbox — toggle visibility of the small copy icons next to cookie name/value cells."
+  },
+  "settingsShowFilterBar": {
+    "message": "显示过滤栏",
+    "description": "Settings checkbox — toggle visibility of the filter input at the top of the panel."
+  },
+  "settingsFilterBy": {
+    "message": "过滤",
+    "description": "Settings label preceding a dropdown that selects which field the filter bar matches against."
+  },
+  "settingsFilterByName": {
+    "message": "名称",
+    "description": "Filter-by dropdown option — match against cookie name only."
+  },
+  "settingsFilterByValue": {
+    "message": "值",
+    "description": "Filter-by dropdown option — match against cookie value only."
+  },
+  "settingsFilterByNameValue": {
+    "message": "名称或值",
+    "description": "Filter-by dropdown option — match against either cookie name or value."
+  },
+
+  "filterPlaceholderName": {
+    "message": "按名称过滤",
+    "description": "Placeholder text in the filter input when filtering by name."
+  },
+  "filterPlaceholderValue": {
+    "message": "按值过滤",
+    "description": "Placeholder text in the filter input when filtering by value."
+  },
+  "filterPlaceholderNameValue": {
+    "message": "按名称或值过滤",
+    "description": "Placeholder text in the filter input when filtering by either name or value."
+  },
+
+  "footerTotalCookies": {
+    "message": "总计 Cookie：",
+    "description": "Footer label preceding the total cookie count number."
+  },
+  "footerSelected": {
+    "message": "已选取：",
+    "description": "Footer label preceding the count of currently selected cookies (only shown when 2+ are selected)."
+  },
+
+  "rowSession": {
+    "message": "会话",
+    "description": "Cell text in the Expires column for cookies that expire when the browser session ends."
+  },
+  "rowTrue": {
+    "message": "是",
+    "description": "Cell text in the HTTP-Only and Secure columns when the flag is set."
+  },
+  "rowCopy": {
+    "message": "复制",
+    "description": "Tooltip on the small copy-to-clipboard icon in cookie name/value cells."
+  },
+
+  "importInvalidJson": {
+    "message": "Cookie 导入失败：$REASON$",
+    "description": "Alert shown when the imported file is not valid JSON. $REASON$ is the parser's error message.",
+    "placeholders": {
+      "reason": { "content": "$1", "example": "Unexpected token } in JSON at position 42" }
+    }
+  },
+  "importSchemaFailed": {
+    "message": "Cookie 导入失败：\n$DETAILS$",
+    "description": "Alert shown when the imported JSON does not match the expected cookie schema. $DETAILS$ is a multi-line summary of validation issues.",
+    "placeholders": {
+      "details": { "content": "$1", "example": "0.name: Required\n1.domain: Invalid type" }
+    }
+  },
+  "importMoreIssues": {
+    "message": "\n…其他还有 $COUNT$ 个",
+    "description": "Suffix appended to the schema-failure alert when more than 3 validation issues exist. $COUNT$ is the number of additional issues not shown.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "5" }
+    }
+  },
+  "importConfirm": {
+    "message": "导入 $COUNT$ 个 Cookie? 已存在的同名，同域名和同路径的 Cookie 将会被覆盖。",
+    "description": "Confirmation dialog shown before importing cookies. $COUNT$ is the number of cookies in the import file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  }
+}
