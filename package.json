@@ -3,7 +3,7 @@
   "private": true,
   "version": "3.2.0",
   "type": "module",
-  "description": "Missing cookie manager for Google Chrome. Edit and create cookies right in the Developer Tools.",
+  "description": "Easy cookies management via a dedicated tab in Developer Tools",
   "license": "MIT",
   "scripts": {
     "dev": "vite build --watch --mode development",
@@ -21,15 +21,15 @@
     "@eslint/js": "^10.0.1",
     "@preact/preset-vite": "^2.10.5",
     "@types/chrome": "^0.1.42",
-    "@types/node": "^25.6.2",
-    "eslint": "^10.3.0",
-    "preact": "^10.29.1",
+    "@types/node": "^25.9.1",
+    "eslint": "^10.4.0",
+    "preact": "^10.29.2",
     "prettier": "^3.8.3",
     "sass": "^1.99.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.2",
-    "vite": "^8.0.11",
-    "vitest": "^4.1.5"
+    "typescript-eslint": "^8.59.4",
+    "vite": "^8.0.13",
+    "vitest": "^4.1.6"
   },
   "dependencies": {
     "valibot": "^1.4.0"

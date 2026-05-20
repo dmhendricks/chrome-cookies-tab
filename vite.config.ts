@@ -1,6 +1,6 @@
 import { copyFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 import { crx, type ManifestV3Export } from '@crxjs/vite-plugin';
 import preact from '@preact/preset-vite';
 import manifest from './src/manifest.json' with { type: 'json' };
@@ -23,5 +23,10 @@ export default defineConfig({
         panel: 'src/panel/panel.html',
       },
     },
+  },
+  test: {
+    environment: 'node',
+    setupFiles: ['./test/setup.ts'],
+    include: ['test/**/*.test.ts'],
   },
 });
