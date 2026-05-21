@@ -28,7 +28,8 @@ describe('CookieSchema', () => {
   });
 
   it('accepts cookies without expirationDate (session cookies)', () => {
-    const { expirationDate: _e, ...rest } = validCookie;
+    const rest: Partial<typeof validCookie> = { ...validCookie };
+    delete rest.expirationDate;
     expect(v.is(CookieSchema, rest)).toBe(true);
   });
 
@@ -37,7 +38,8 @@ describe('CookieSchema', () => {
   });
 
   it('rejects missing required fields', () => {
-    const { name: _n, ...rest } = validCookie;
+    const rest: Partial<typeof validCookie> = { ...validCookie };
+    delete rest.name;
     expect(v.is(CookieSchema, rest)).toBe(false);
   });
 });
