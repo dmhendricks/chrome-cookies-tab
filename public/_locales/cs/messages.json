@@ -45,7 +45,7 @@
     "description": "Column header — abbreviated label for the HttpOnly flag."
   },
   "columnSecure": {
-    "message": "Zabezpečeno",
+    "message": "HTTPS",
     "description": "Column header — Secure flag."
   },
 

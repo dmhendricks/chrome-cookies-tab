@@ -94,7 +94,7 @@
     "description": "Checkbox label — cookie is inaccessible to JavaScript (HttpOnly attribute)."
   },
   "formFlagSecure": {
-    "message": "Sécurisé",
+    "message": "Sécurisé (HTTPS)",
     "description": "Checkbox label — cookie is only sent over HTTPS (Secure attribute)."
   },
   "formCancel": {

@@ -36,7 +36,7 @@
     "description": "Column header — cookie path."
   },
   "columnExpires": {
-    "message": "Срок действия",
+    "message": "Истекает",
     "description": "Column header — cookie expiration date (rendered in the user's local timezone)."
   },
   "columnHttpOnly": {
