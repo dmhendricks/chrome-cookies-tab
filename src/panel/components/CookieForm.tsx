@@ -40,7 +40,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel, showToast }: Pr
   const initialDate = expirationDate(initial);
   const nameRef = useRef<HTMLInputElement>(null);
   const valueRef = useRef<HTMLTextAreaElement>(null);
-  const viewRef = useRef<HTMLDivElement>(null);
+  const flagsRef = useRef<HTMLDivElement>(null);
   const [showHeader, setShowHeader] = useState(false);
   const [tallValue, setTallValue] = useState(false);
   const [name, setName] = useState(initial.name ?? '');
@@ -64,17 +64,24 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel, showToast }: Pr
   }, []);
 
   useEffect(() => {
-    const el = viewRef.current;
-    if (!el) return;
     const update = () => {
-      const h = el.clientHeight;
+      const flags = flagsRef.current;
+      // Single-row flag height; anything beyond is wrap overflow that steals
+      // vertical space from the rest of the form.
+      const baseline = 22;
+      const overflow = flags ? Math.max(0, flags.clientHeight - baseline) : 0;
+      const h = window.innerHeight - overflow;
       setShowHeader(h >= 250);
       setTallValue(h > 300);
     };
     update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
+    window.addEventListener('resize', update);
+    const ro = flagsRef.current ? new ResizeObserver(update) : null;
+    if (ro && flagsRef.current) ro.observe(flagsRef.current);
+    return () => {
+      window.removeEventListener('resize', update);
+      ro?.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -120,7 +127,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel, showToast }: Pr
   };
 
   return (
-    <div id="cookie-form-view" ref={viewRef}>
+    <div id="cookie-form-view">
       {showHeader && (
         <div id="cookie-form-view-header">
           <span>{isNew ? t('formAddTitle') : t('formEditTitle')}</span>
@@ -199,7 +206,7 @@ export function CookieForm({ initial, isNew, onSubmit, onCancel, showToast }: Pr
               onInput={(e) => setExpires((e.target as HTMLInputElement).value)}
             />
           </div>
-          <div className="form-flags">
+          <div className="form-flags" ref={flagsRef}>
             <label className="flag">
               <input
                 type="checkbox"
