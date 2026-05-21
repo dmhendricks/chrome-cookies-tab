@@ -2,7 +2,7 @@
    "manifest_version": 3,
    "name": "__MSG_extName__",
    "short_name": "__MSG_extShortName__",
-   "version": "3.2.0",
+   "version": "3.3.0",
    "default_locale": "en",
    "devtools_page": "src/devtools/devtools-page.html",
    "description": "__MSG_extDescription__",

@@ -1,6 +1,6 @@
 # Cookies Tab in DevTools Changelog
 
-### Unreleased
+### Release 3.3.0
 
 - Added Chinese (Simplified), Korean, Japenese and Russian translations
 - Fixed European Portuguese translation not appearing in the Chrome Web Store listing by renaming the `_locales/pt` folder to `_locales/pt_PT`, the locale code Chrome recognizes.
