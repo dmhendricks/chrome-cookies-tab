@@ -1,0 +1,268 @@
+{
+  "extName": {
+    "message": "Tab Cookies di DevTools",
+    "description": "Extension name shown in Chrome Web Store and chrome://extensions."
+  },
+  "extShortName": {
+    "message": "Tab Cookies",
+    "description": "Short extension name shown when space is constrained."
+  },
+  "extDescription": {
+    "message": "Kelola cookies dengan mudah melalui tab khusus di Developer Tools",
+    "description": "Extension description shown in Chrome Web Store and chrome://extensions."
+  },
+  "panelTabTitle": {
+    "message": "Cookies",
+    "description": "Label of the extension's tab inside Chrome DevTools (sits next to Elements, Console, Network, etc.)."
+  },
+  
+  "columnName": {
+    "message": "Nama",
+    "description": "Column header — cookie name."
+  },
+  "columnValue": {
+    "message": "Nilai",
+    "description": "Column header — cookie value."
+  },
+  "columnDomain": {
+    "message": "Domain",
+    "description": "Column header — cookie domain."
+  },
+  "columnSize": {
+    "message": "Ukuran",
+    "description": "Column header — cookie size in bytes."
+  },
+  "columnPath": {
+    "message": "Path",
+    "description": "Column header — cookie path."
+  },
+  "columnExpires": {
+    "message": "Kedaluwarsa",
+    "description": "Column header — cookie expiration date (rendered in the user's local timezone)."
+  },
+  "columnHttpOnly": {
+    "message": "HTTP",
+    "description": "Column header — abbreviated label for the HttpOnly flag."
+  },
+  "columnSecure": {
+    "message": "Aman",
+    "description": "Column header — Secure flag."
+  },
+  
+  "formAddTitle": {
+    "message": "Tambah Cookie",
+    "description": "Header text shown above the form when adding a new cookie."
+  },
+  "formEditTitle": {
+    "message": "Edit Cookie",
+    "description": "Header text shown above the form when editing an existing cookie."
+  },
+  "formClose": {
+    "message": "Tutup",
+    "description": "Tooltip and accessible label for the form's close (X) button."
+  },
+  "formName": {
+    "message": "Nama",
+    "description": "Label for the cookie name input in the edit/add form."
+  },
+  "formValue": {
+    "message": "Nilai",
+    "description": "Label for the cookie value input in the edit/add form."
+  },
+  "formDomain": {
+    "message": "Domain",
+    "description": "Label for the cookie domain input in the edit/add form."
+  },
+  "formPath": {
+    "message": "Path",
+    "description": "Label for the cookie path input in the edit/add form."
+  },
+  "formExpires": {
+    "message": "Kedaluwarsa",
+    "description": "Label for the cookie expiration date input in the edit/add form."
+  },
+  "formFlagSession": {
+    "message": "Sesi",
+    "description": "Checkbox label — marks the cookie as a session cookie (deleted when browser closes)."
+  },
+  "formFlagHostOnly": {
+    "message": "Host Saja",
+    "description": "Checkbox label — restricts cookie to the exact host, no subdomains."
+  },
+  "formFlagHttpOnly": {
+    "message": "Hanya HTTP",
+    "description": "Checkbox label — cookie is inaccessible to JavaScript (HttpOnly attribute)."
+  },
+  "formFlagSecure": {
+    "message": "Aman",
+    "description": "Checkbox label — cookie is only sent over HTTPS (Secure attribute)."
+  },
+  "formCancel": {
+    "message": "Batal",
+    "description": "Button — discard changes and close the edit/add form."
+  },
+  "formSave": {
+    "message": "Simpan",
+    "description": "Button — save the cookie in the edit/add form."
+  },
+  "formExpirationCapped": {
+    "message": "Browser Anda membatasi masa berlaku cookie hingga 400 hari. Kedaluwarsa akan diatur ke $DATE$.",
+    "description": "Alert shown when the user picks an expiration more than 400 days in the future. Chrome (per RFC 6265bis) clamps the value, so we tell the user the date that will actually be stored. $DATE$ is the localized capped date.",
+    "placeholders": {
+      "date": { "content": "$1", "example": "Jun 11, 2027, 14:30:00" }
+    }
+  },
+  
+  "menuAddNew": {
+    "message": "Tambah Cookie Baru",
+    "description": "Context menu item — open the form to add a new cookie."
+  },
+  "menuEdit": {
+    "message": "Edit Cookie",
+    "description": "Context menu item — edit the single cookie that was right-clicked."
+  },
+  "menuRefresh": {
+    "message": "Muat Ulang",
+    "description": "Context menu item — reload the cookie list from the browser."
+  },
+  "menuDelete": {
+    "message": "Hapus Cookie",
+    "description": "Context menu item — delete the single cookie that was right-clicked."
+  },
+  "menuDeleteSelected": {
+    "message": "Hapus yang Dipilih ($COUNT$)",
+    "description": "Context menu item shown when multiple cookies are selected. $COUNT$ is the number of selected cookies.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuDeleteAll": {
+    "message": "Hapus Semua Cookie",
+    "description": "Context menu item — delete every cookie currently shown."
+  },
+  "menuExport": {
+    "message": "Ekspor Cookie",
+    "description": "Context menu item — export the single cookie that was right-clicked."
+  },
+  "menuExportSelected": {
+    "message": "Ekspor yang Dipilih ($COUNT$)",
+    "description": "Context menu item shown when multiple cookies are selected. $COUNT$ is the number of selected cookies.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "3" }
+    }
+  },
+  "menuExportAll": {
+    "message": "Ekspor Semua Cookie",
+    "description": "Context menu item — export every cookie currently shown to a JSON file."
+  },
+  "menuImport": {
+    "message": "Impor Cookies",
+    "description": "Context menu item — import cookies from a JSON file."
+  },
+  "cookiesExported": {
+    "message": "$COUNT$ cookies diekspor",
+    "description": "Toast shown after the user exports cookies to a JSON file. $COUNT$ is the number of cookies written to the file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  "cookiesImported": {
+    "message": "$COUNT$ cookies diimpor",
+    "description": "Toast shown after the user imports cookies from a JSON file. $COUNT$ is the number of cookies read from the file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  },
+  
+  "settingsTitle": {
+    "message": "Pengaturan",
+    "description": "Tooltip and accessible label for the gear icon that opens the settings popover."
+  },
+  "settingsShowCopyIcons": {
+    "message": "Tampilkan ikon salin ke papan klip",
+    "description": "Settings checkbox — toggle visibility of the small copy icons next to cookie name/value cells."
+  },
+  "settingsShowFilterBar": {
+    "message": "Tampilkan bilah filter",
+    "description": "Settings checkbox — toggle visibility of the filter input at the top of the panel."
+  },
+  "settingsFilterBy": {
+    "message": "Filter berdasarkan",
+    "description": "Settings label preceding a dropdown that selects which field the filter bar matches against."
+  },
+  "settingsFilterByName": {
+    "message": "Nama",
+    "description": "Filter-by dropdown option — match against cookie name only."
+  },
+  "settingsFilterByValue": {
+    "message": "Nilai",
+    "description": "Filter-by dropdown option — match against cookie value only."
+  },
+  "settingsFilterByNameValue": {
+    "message": "Nama atau Nilai",
+    "description": "Filter-by dropdown option — match against either cookie name or value."
+  },
+  
+  "filterPlaceholderName": {
+    "message": "Filter berdasarkan nama",
+    "description": "Placeholder text in the filter input when filtering by name."
+  },
+  "filterPlaceholderValue": {
+    "message": "Filter berdasarkan nilai",
+    "description": "Placeholder text in the filter input when filtering by value."
+  },
+  "filterPlaceholderNameValue": {
+    "message": "Filter berdasarkan nama atau nilai",
+    "description": "Placeholder text in the filter input when filtering by either name or value."
+  },
+  
+  "footerTotalCookies": {
+    "message": "Total cookies:",
+    "description": "Footer label preceding the total cookie count number."
+  },
+  "footerSelected": {
+    "message": "Dipilih:",
+    "description": "Footer label preceding the count of currently selected cookies (only shown when 2+ are selected)."
+  },
+  "rowSession": {
+    "message": "Sesi",
+    "description": "Cell text in the Expires column for cookies that expire when the browser session ends."
+  },
+  "rowTrue": {
+    "message": "Benar",
+    "description": "Cell text in the HTTP-Only and Secure columns when the flag is set."
+  },
+  "rowCopy": {
+    "message": "Salin",
+    "description": "Tooltip on the small copy-to-clipboard icon in cookie name/value cells."
+  },
+  
+  "importInvalidJson": {
+    "message": "Impor cookie gagal: $REASON$",
+    "description": "Alert shown when the imported file is not valid JSON. $REASON$ is the parser's error message.",
+    "placeholders": {
+      "reason": { "content": "$1", "example": "Unexpected token } in JSON at position 42" }
+    }
+  },
+  "importSchemaFailed": {
+    "message": "Impor cookie gagal:\n$DETAILS$",
+    "description": "Alert shown when the imported JSON does not match the expected cookie schema. $DETAILS$ is a multi-line summary of validation issues.",
+    "placeholders": {
+      "details": { "content": "$1", "example": "0.name: Required\n1.domain: Invalid type" }
+    }
+  },
+  "importMoreIssues": {
+    "message": "\n…dan $COUNT$ lainnya",
+    "description": "Suffix appended to the schema-failure alert when more than 3 validation issues exist. $COUNT$ is the number of additional issues not shown.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "5" }
+    }
+  },
+  "importConfirm": {
+    "message": "Impor $COUNT$ cookie? Cookie yang sudah ada dengan nama, domain, dan path yang sama akan ditimpa.",
+    "description": "Confirmation dialog shown before importing cookies. $COUNT$ is the number of cookies in the import file.",
+    "placeholders": {
+      "count": { "content": "$1", "example": "12" }
+    }
+  }
+}
