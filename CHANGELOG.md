@@ -1,5 +1,9 @@
 # Cookies Tab in DevTools Changelog
 
+### Release 3.3.1
+
+- Added Indonesian translation
+
 ### Release 3.3.0
 
 - Added Chinese (Simplified), Korean, Japenese and Russian translations
